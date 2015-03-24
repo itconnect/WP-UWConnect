@@ -48,7 +48,7 @@ get_header(); ?>
       ?>
                 <?php
                     // Only do this work if we have everything we need to get to ServiceNow.
-                    if ( get_option('uwc_SN_URL') && get_option('uwc_SN_PASS') && get_option('uwc_SN_URL') ) {
+                    if ( get_option('uwc_SN_URL') != '' && get_option('uwc_SN_PASS') != '' && get_option('uwc_SN_USER') != '' ) {
                         $args = array(
                             'headers' => array(
                                 'Authorization' => 'Basic ' . base64_encode( get_option('uwc_SN_USER') . ':' . get_option('uwc_SN_PASS') ),
@@ -239,7 +239,7 @@ get_header(); ?>
                     <?php } ?>
 
                 <?php } else {?>
-                    <p>Whoops! Something went wrong, if this persists, please contact the Administrator.</p>
+                    <p class="alert alert-danger">Whoops! It appears the server has been improperly configured. If this persists, please contact the Site Administrator.</p>
                 <?php }
                 } else {
                     echo "<h3>Status 403: Unauthorized</h3>";

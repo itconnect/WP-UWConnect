@@ -26,6 +26,7 @@ get_header(); ?>
   <div id="primary" class="col-xs-12 col-sm-12 col-md-10 col-lg-10 itsm-primary">
 
 <?php
+              if ( get_option('uwc_SN_URL') != '' && get_option('uwc_SN_PASS') != '' && get_option('uwc_SN_USER') != '' ) {
               $args = array(
                   'headers' => array(
                       'Authorization' => 'Basic ' . base64_encode( get_option('uwc_SN_USER') . ':' . get_option('uwc_SN_PASS') ),
@@ -155,6 +156,9 @@ get_header(); ?>
                 }
                 echo "</ol>";
           }
+        } else {
+            echo '<p class="alert alert-danger">Whoops! It appears the server has been improperly c    onfigured. If this persists, please contact the Site Administrator.</p>';
+        }
       ?>
     </div><!-- #content -->
   </div><!-- #primary -->

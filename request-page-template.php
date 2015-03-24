@@ -67,6 +67,7 @@ get_header(); ?>
                  <span style="float:right;"><span class="glyphicon glyphicon-user"></span>&nbsp;<?php echo $user; ?> &nbsp;&nbsp;&nbsp;<a href="<?php echo home_url('/user_logout'); ?>" class="buttonesque">LOGOUT</a></span>
                 </div>
                 <?php
+                if ( get_option('uwc_SN_URL') != '' && get_option('uwc_SN_PASS') != '' && get_option('uwc_SN_USER') != '' ) {
                         $args = array(
                             'headers' => array(
                                 'Authorization' => 'Basic ' . base64_encode( get_option('uwc_SN_USER') . ':' . get_option('uwc_SN_PASS') ),
@@ -288,8 +289,10 @@ get_header(); ?>
                         }
                         echo "</ol>";
                         } //end if else to see if incident/request number doesn't match
-                      }
-
+                  } else {
+                  echo '<p class="alert alert-danger">Whoops! It appears the server has been improperly configured. If this persists, please contact the Site Administrator.</p>';
+                  }
+                }
 
 			?>
 		</div><!-- #content -->

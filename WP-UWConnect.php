@@ -294,6 +294,7 @@ function request_page_template( $template ) {
 add_filter( 'template_include', 'request_page_template');
 
 function service_status() {
+  if ( get_option('uwc_SN_URL') != '' && get_option('uwc_SN_PASS') != '' && get_option('uwc_SN_USER') != '' ) {
   $hash = base64_encode( get_option('uwc_SN_USER') . ':' . get_option('uwc_SN_PASS') );
   $args = array(
       'headers' => array(
@@ -388,6 +389,9 @@ function service_status() {
                $i++;
             }
         echo "</div>";
+      }
+      } else {
+          echo '<p class="alert alert-danger">Whoops! It appears the server has been improperly configured. If this persists, please contact the Site Administrator.</p>';
       }
   echo "<p class='alert alert-info' style='margin-top: 2em;'>Experiencing IT problems not listed on this page? Need more information about a service impact? Want to provide feedback about this page? <a href='/itconnect/help'>Get help.</a></p>";
         die();
