@@ -1,5 +1,6 @@
 <?php define( 'DONOTCACHEPAGE', True ); ?>
-<?php get_header(); ?>
+<?php require_once('status-functions.php');
+	get_header(); ?>
     <div id="wrap" class="row">
 
 <div id="main_content" role="main">
@@ -16,10 +17,14 @@
 			<?php while ( have_posts() ) : the_post(); ?>
 			<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 				<header class="entry-header">
-					<h1 class="entry-title hidden-phone"><?php apply_filters('italics', get_the_title()); ?></h1>
+					<h1 class="entry-title hidden-phone">Service Status</h1>
 				</header><!-- .entry-header -->
 
 				<div class="entry-content">
+<p>
+This page shows active eOutages and High priority incidents. 
+<p>
+<?php //if (check_e_outage()) { echo "<p><div class='alert alert-warning' style='margin-top:2em;'>There have been <a href='https://www.washington.edu/cac/outages' target='_blank'>eOutages</a> reported</div>"; } ?>
 					<?php the_content(); ?>
 					<?php wp_link_pages( array( 'before' => '<div class="page-link"><span>' . __( 'Pages:', 'twentyeleven' ) . '</span>', 'after' => '</div>' ) );
                     include_once(ABSPATH . 'wp-admin/includes/plugin.php');
@@ -32,7 +37,7 @@
         JavaScript is required to view this content. Please enable JavaScript and try again.
         </div>
         <div id="spinner" style="width:150px; margin:auto; display: none; text-align:center; line-height:100px;">
-            <img src="/itconnect/wp-admin/images/loading.gif" alt="Loading..." />
+            <img src="/wp-admin/images/loading.gif" alt="Loading..." />
         </div>
         <div id="services"></div>
                 </div>
@@ -50,5 +55,6 @@
    <script>
        servicestatus();
    </script>
+
 <!-- #wrap -->
 <?php get_footer(); ?>
