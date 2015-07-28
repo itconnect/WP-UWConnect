@@ -10,7 +10,7 @@
 /*  Copyright 2015  UW IT ACA  (email : cstimmel@uw.edu)
 
     This program is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License, version 2, as 
+    it under the terms of the GNU General Public License, version 2, as
     published by the Free Software Foundation.
 
     This program is distributed in the hope that it will be useful,
@@ -93,7 +93,7 @@ function uw_connect_options() {
 
   // See if the user has posted us some information
   // If they did, this hidden field will be set to 'Y'
-  if( isset($_POST[ $hidden_field_name ]) && $_POST[ $hidden_field_name ] == 'Y' ) { 
+  if( isset($_POST[ $hidden_field_name ]) && $_POST[ $hidden_field_name ] == 'Y' ) {
       // Read their posted value
       $url_val = $_POST[ $data_url ];
       $user_val = $_POST[ $data_user ];
@@ -428,12 +428,17 @@ function service_status() {
       ),
       'timeout' => 25,
   );
- 
+
   echo "<h4>eOutages</h4><p>For more information about eOutages, visit <a href=\"https://www.washington.edu/cac/outages\">eOutage Homepage</a><p>";
   $dom = new DOMDocument();
   $eOutage = check_e_outage();
-  if (!$eOutage) { 
-		echo "<div class='alert alert-warning' style='margin-top:2em;'>There are no eOutages.</div>"; 
+  if (!$eOutage) {
+    if (defined('E_OUTAGE_URL')){
+		    echo "<div class='alert alert-warning' style='margin-top:2em;'>There are no eOutages.</div>";
+      }
+      else {
+        echo "<div class='alert alert-warning' style='margin-top:2em;'>The eOutage url is not defined. Please contact system admin for further asistance.</div>";
+      }
 		}
   else {
     $dom->loadHTML($eOutage);
@@ -487,9 +492,9 @@ function service_status() {
           echo "<div class='alert alert-warning' style='margin-top:2em;'>There are no high priority incidents.</div>";
       }
       $sn_data = array();
-      
+
      foreach ( $IDJSON->records as $record ) {
-          if( !isset( $sn_data[$record->cmdb_ci] ) ) { 
+          if( !isset( $sn_data[$record->cmdb_ci] ) ) {
                   $sn_data[$record->cmdb_ci] = array();
                   unset($first);
               }
@@ -518,15 +523,15 @@ function service_status() {
         $classes[] = $class;
 	}
 
-      if ( !empty( $JSON->records ) ) { 
+      if ( !empty( $JSON->records ) ) {
           $sn_data = array();
           foreach( $JSON->records as $record ) {
 	     // if ($record->cmdb_ci == "") { continue; }
-              if( !isset( $sn_data[$record->cmdb_ci] ) ) { 
+              if( !isset( $sn_data[$record->cmdb_ci] ) ) {
                   $sn_data[$record->cmdb_ci] = array();
                   unset($first);
               }
-	      else { 
+	      else {
 			$first = $sn_data[$record->cmdb_ci][1];  //cannot assume order. load current first for ci
               }
 	      $create = $record->sys_created_on;
@@ -536,7 +541,7 @@ function service_status() {
               if($create < $first) {
                   $first = $create;
               }
-	    
+
               $sn_data[$record->cmdb_ci][] = $record;
 	      $sn_data[$record->cmdb_ci][] = $first;
 
@@ -557,22 +562,22 @@ function service_status() {
 
 
 
-			      if ($count == 0 || $update_time < $current_update_time) { $update_time = $current_update_time; 
+			      if ($count == 0 || $update_time < $current_update_time) { $update_time = $current_update_time;
 
-}			$count++; 
-				
-		
+}			$count++;
+
+
 			}
-		  } 
+		  }
                   $class = $classes[$i];
                   $service = array_search($ci, $sn_data);
                   // handle the case of blank services and switches who's 'name' is a sequence of 5 or more numbers
-                  //if ( $service !== '' && !preg_match('/^\d{5,}$/', $service) ) { 
+                  //if ( $service !== '' && !preg_match('/^\d{5,}$/', $service) ) {
 			if ($service !== '' ) {
 	//print_r( $ci);
 	//		echo $ci[0]['cmdb_ci'];
 			$time = end($ci);
-		   	
+
                     echo "<div class='servicecontent row'>";
                       echo "<div class='servicewrap row'>";
                         echo "<span class='glyphicon glyphicon-chevron-right switch' style='display:inline-block;float:left;'></span>";
@@ -583,7 +588,7 @@ function service_status() {
                       echo "<ul class='relatedincidents'>";
                       echo "<li class='incident-head row'>";
                           echo "<div class='col-lg-3 col-md-3 col-sm-3 col-xs-3'>Incident Number</div>";
-                          echo "<div class='col-lg-9 col-md-9 col-sm-9 col-xs-9'>Description</div>"; 
+                          echo "<div class='col-lg-9 col-md-9 col-sm-9 col-xs-9'>Description</div>";
                       echo "</li>";
                           foreach( $ci as $incident ) {
                             if (!is_string($incident)) {
@@ -594,7 +599,7 @@ function service_status() {
 				  if ($count > 1) { //if there is only one incident, don't show time twice.
 					echo "<div class='col-lg-4 col-md-4 col-sm-4 col-xs-4' style='color:#aaa; font-size:95%; display:inline-block;'><span class='hidden-sm hidden-xs'>Reported at</span> " . $incident->sys_created_on . "<br>Updated at ".$incident->sys_updated_on."</div>";
 					}
-					echo "</li>";                         
+					echo "</li>";
      //echo "</li></a>";
                             }
                           }
