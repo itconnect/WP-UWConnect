@@ -428,55 +428,51 @@ function service_status() {
       ),
       'timeout' => 25,
   );
-
-  echo "<h4>eOutages</h4><p>For more information about eOutages, visit <a href=\"https://www.washington.edu/cac/outages\">eOutage Homepage</a><p>";
-  $dom = new DOMDocument();
-  $eOutage = check_e_outage();
-  if (!$eOutage) {
-    if (defined('E_OUTAGE_URL')){
-		    echo "<div class='alert alert-warning' style='margin-top:2em;'>There are no eOutages.</div>";
+  if (!defined('E_OUTAGE_URL')) {
+    echo "<div class='alert alert-warning' style='margin-top:2em;'>The eOutage url is not defined. Please contact system admin for further asistance.</div>";
+  } else {
+    echo "<h4>eOutages</h4><p>For more information about eOutages, visit <a href=".E_OUTAGE_URL.">eOutage Homepage</a><p>";
+    $dom = new DOMDocument();
+    $eOutage = check_e_outage();
+    if (!$eOutage) {
+      echo "<div class='alert alert-warning' style='margin-top:2em;'>There are no eOutages.</div>";
+    } else {
+      $dom->loadHTML($eOutage);
+      $titleArray = array();
+      $dateArray = array();
+      $contentArray = array();
+      $eOutageTitles = $dom->getElementsByTagName('h4');
+      $eOutageDates = $dom->getElementsByTagName('em');
+      $eOutageContent = $dom->getElementsByTagName('div');
+      foreach ($eOutageTitles as $title) {
+          $titleArray[] = $title->nodeValue;
       }
-      else {
-        echo "<div class='alert alert-warning' style='margin-top:2em;'>The eOutage url is not defined. Please contact system admin for further asistance.</div>";
+      foreach ($eOutageDates as $date) {
+         $dateArray[] = $date->nodeValue;
       }
-		}
-  else {
-    $dom->loadHTML($eOutage);
-    $titleArray = array();
-    $dateArray = array();
-    $contentArray = array();
-    $eOutageTitles = $dom->getElementsByTagName('h4');
-    $eOutageDates = $dom->getElementsByTagName('em');
-    $eOutageContent = $dom->getElementsByTagName('div');
-    foreach ($eOutageTitles as $title) {
-        $titleArray[] = $title->nodeValue;
+      foreach ($eOutageContent as $content) {
+        $contentArray[] = parse_eoutage($content->textContent);
+      }
+      for ($i=0; $i < count($titleArray) ; $i++) {
+        echo "<div class='servicecontent row'>";
+       	echo "<div class='servicewrap row'>";
+        echo "<span class='glyphicon glyphicon-chevron-right switch' style='display:inline-block;float:left;'></span>";
+        echo "<span class='service_name col-lg-5 col-md-5 col-sm-7 col-xs-7' style='font-weight:bold; display:inline-block;'>".$titleArray[$i]."</span>";
+        echo "<span class='service_time col-lg-4 col-md-4 col-sm-4 col-xs-4' style='color:#aaa; font-size:95%; display:inline-block;'><span class='hidden-sm hidden-xs'></span>".$dateArray[$i]."</span>";
+  			echo "</div>";
+        echo "<ul class='relatedincidents'>";
+        echo "<li class='incident-head row'>";
+        echo "<div class='col-lg-9 col-md-9 col-sm-9 col-xs-9'>Description</div>";
+        echo "</li>";
+    		echo "<div class='col-lg-9 col-md-9 col-sm-9 col-xs-9 inc_sdesc'>" . $contentArray[$i] . "</div>";
+        echo "</li></a>";
+        echo "</ul>";
+        echo "</div><p>";
+      }
     }
-    foreach ($eOutageDates as $date) {
-       $dateArray[] = $date->nodeValue;
-    }
-   foreach ($eOutageContent as $content) {
-      $contentArray[] = parse_eoutage($content->textContent);
-   }
-   for ($i=0; $i < count($titleArray) ; $i++) {
-     			echo "<div class='servicecontent row'>";
-     			echo "<div class='servicewrap row'>";
-                        echo "<span class='glyphicon glyphicon-chevron-right switch' style='display:inline-block;float:left;'></span>";
-                        echo "<span class='service_name col-lg-5 col-md-5 col-sm-7 col-xs-7' style='font-weight:bold; display:inline-block;'>".$titleArray[$i]."</span>";
-                        echo "<span class='service_time col-lg-4 col-md-4 col-sm-4 col-xs-4' style='color:#aaa; font-size:95%; display:inline-block;'><span class='hidden-sm hidden-xs'></span>".$dateArray[$i]."</span>";
-			echo "</div>";
-                        echo "<ul class='relatedincidents'>";
-                        echo "<li class='incident-head row'>";
-                        echo "<div class='col-lg-9 col-md-9 col-sm-9 col-xs-9'>Description</div>";
-                        echo "</li>";
-  			echo "<div class='col-lg-9 col-md-9 col-sm-9 col-xs-9 inc_sdesc'>" . $contentArray[$i] . "</div>";
-                        echo "</li></a>";
-                        echo "</ul>";
-                        echo "</div><p>";
-
-
-	}
-
   }
+
+
   echo "</div>";
   echo "<br><h4>High Priority Incidents</h4>";
 
