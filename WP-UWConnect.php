@@ -311,7 +311,7 @@ function create_servicestatus_page() {
             'ping_status' =>  'closed',
             'post_name' => 'servicestatus',
             'post_status' => 'publish',
-            'post_title' => 'ServiceStatus',
+            'post_title' => 'Service Status',
             'post_type' => 'page',
       );
       $newvalue = wp_insert_post( $post, false );
