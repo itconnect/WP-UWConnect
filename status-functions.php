@@ -3,8 +3,8 @@
 
 
 function check_e_outage() {
-
-  $data = wp_remote_retrieve_body( wp_remote_get(E_OUTAGE_URL) );
+  $e_Outage_url = get_option('uwc_EOutage_URL');
+  $data = wp_remote_retrieve_body( wp_remote_get($e_Outage_url) );
 
 	$status = scrape_between($data, "<div class=\"status\">", "</body>");
 	if (strpos($data, "not operating normally")) {

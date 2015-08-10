@@ -73,6 +73,8 @@ function uw_connect_options() {
   $data_servstat = 'uwc_SERVSTAT';
   $servcat = 'uwc_SERVCAT';
   $data_servcat = 'uwc_SERVCAT';
+  $eOutage_url = 'uwc_EOutage_URL';
+  $data_eOutage_url = 'uwc_EOutage_URL';
 
   // Read in existing option value from database
   $url_val = get_option( $url );
@@ -81,6 +83,7 @@ function uw_connect_options() {
   $myreq_val = get_option( $myreq );
   $servstat_val = get_option( $servstat );
   $servcat_val = get_option( $servcat );
+  $eOutage_url_val = get_option( $eOutage_url );
   if ($myreq_val == '') {
       update_option( $myreq, 'off' );
   }
@@ -101,6 +104,7 @@ function uw_connect_options() {
       $myreq_val = $_POST[ $data_myreq ];
       $servstat_val = $_POST[ $data_servstat ];
       $servcat_val = $_POST[ $data_servcat ];
+      $eOutage_url_val = $_POST[ $data_eOutage_url ];
 
       $prevmyreq = get_option( $myreq );
       $prevservstat = get_option( $servstat );
@@ -113,6 +117,7 @@ function uw_connect_options() {
       update_option( $myreq, $myreq_val );
       update_option( $servstat, $servstat_val );
       update_option( $servcat, $servcat_val );
+      update_option( $eOutage_url, $eOutage_url_val );
 
       if ( $myreq_val == 'on' ) {
           if (!get_page_by_name('myrequest')) {
@@ -198,6 +203,10 @@ function uw_connect_options() {
 <p><?php _e("ServiceNow Service Status Portal: ", 'menu' ); ?>
 <input type="radio" name="<?php echo $data_servstat; ?>" value="on" <?php echo ($servstat_val=='on')?'checked':'' ?>>ON
 <input type="radio" name="<?php echo $data_servstat; ?>" value="off" <?php echo ($servstat_val=='off')?'checked':'' ?>>OFF
+</p><hr />
+
+<p><?php _e("E_Outage URL:", 'menu' ); ?>
+<input type="text" name="<?php echo $data_eOutage_url; ?>" value="<?php echo $eOutage_url_val; ?>" size="20">
 </p><hr />
 
 <p><?php _e("Service Catalog: ", 'menu' ); ?>
@@ -428,10 +437,11 @@ function service_status() {
       ),
       'timeout' => 25,
   );
-  if (!defined('E_OUTAGE_URL')) {
+  $e_Outage_url = get_option('uwc_EOutage_URL');
+  if (!$e_Outage_url) {
     echo "<div class='alert alert-warning' style='margin-top:2em;'>The eOutage url is not defined. Please contact system admin for further asistance.</div>";
   } else {
-    echo "<h4>eOutages</h4><p>For more information about eOutages, visit <a href=".E_OUTAGE_URL.">eOutage Homepage</a><p>";
+    echo "<h4>eOutages</h4><p>For more information about eOutages, visit <a href='".$e_Outage_url."'>eOutage Homepage</a><p>";
     $dom = new DOMDocument();
     $eOutage = check_e_outage();
     if (!$eOutage) {
