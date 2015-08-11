@@ -111,7 +111,10 @@ function uw_connect_options() {
       $prevservcat = get_option( $servcat );
 
       // Save the posted value in the database
-      $url_pattern = '(http|https|ftp)://[a-zA-Z0-9_\-\.\+]+\.[a-zA-Z0-9]+([/a-zA-z0-9_\-\.\+\?=%]*)?';
+
+      // This regex only recognizes urls beginning with https, http, ftp. it will
+      // not recognizes urls like "www.uw.edu"
+      $url_pattern = '/(http|https|ftp):\/\/[a-zA-Z0-9_\-\.\+]+\.[a-zA-Z0-9]+([\/a-zA-z0-9_\-\.\+\?=%]*)?/';
       $warning = 'Invalid Url. Example: http://example.com/page';
       // check if the input url is valid
       if (preg_match($url_pattern, $url_val)) {
