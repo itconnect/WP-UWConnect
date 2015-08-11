@@ -111,13 +111,25 @@ function uw_connect_options() {
       $prevservcat = get_option( $servcat );
 
       // Save the posted value in the database
-      update_option( $url, $url_val );
+      $url_pattern = '(http|https|ftp)://[a-zA-Z0-9_\-\.\+]+\.[a-zA-Z0-9]+([/a-zA-z0-9_\-\.\+\?=%]*)?';
+      $warning = 'Invalid Url. Example: http://example.com/page';
+      // check if the input url is valid
+      if (preg_match($url_pattern, $url_val)) {
+          update_option( $url, $url_val );
+      } else {
+          $url_val = $warning;
+      }
       update_option( $user, $user_val );
       update_option( $pass, $pass_val );
       update_option( $myreq, $myreq_val );
       update_option( $servstat, $servstat_val );
       update_option( $servcat, $servcat_val );
-      update_option( $eOutage_url, $eOutage_url_val );
+      // check if the input url is valid
+      if (preg_match($url_pattern, $eOutage_url_val)) {
+          update_option( $eOutage_url, $eOutage_url_val );
+      } else {
+          $eOutage_url_val = $warning;
+      }
 
       if ( $myreq_val == 'on' ) {
           if (!get_page_by_name('myrequest')) {
@@ -180,7 +192,7 @@ function uw_connect_options() {
 <input type="hidden" name="<?php echo $hidden_field_name; ?>" value="Y">
 
 <p><?php _e("ServiceNow URL:", 'menu' ); ?>
-<input type="text" name="<?php echo $data_url; ?>" value="<?php echo $url_val; ?>" size="20">
+<input type="text" name="<?php echo $data_url; ?>" value="<?php echo $url_val; ?>" size="45">
 </p><hr />
 
 <p><?php _e("ServiceNow User:", 'menu' ); ?>
@@ -203,10 +215,10 @@ function uw_connect_options() {
 <p><?php _e("ServiceNow Service Status Portal: ", 'menu' ); ?>
 <input type="radio" name="<?php echo $data_servstat; ?>" value="on" <?php echo ($servstat_val=='on')?'checked':'' ?>>ON
 <input type="radio" name="<?php echo $data_servstat; ?>" value="off" <?php echo ($servstat_val=='off')?'checked':'' ?>>OFF
-</p><hr />
+</p>
 
-<p><?php _e("E_Outage URL:", 'menu' ); ?>
-<input type="text" name="<?php echo $data_eOutage_url; ?>" value="<?php echo $eOutage_url_val; ?>" size="20">
+<p><?php _e("eOutage URL:", 'menu' ); ?>
+<input type="text" name="<?php echo $data_eOutage_url; ?>" value="<?php echo $eOutage_url_val; ?>" size="45">
 </p><hr />
 
 <p><?php _e("Service Catalog: ", 'menu' ); ?>
