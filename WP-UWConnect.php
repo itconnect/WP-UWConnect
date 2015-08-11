@@ -10,7 +10,7 @@
 /*  Copyright 2015  UW IT ACA  (email : cstimmel@uw.edu)
 
     This program is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License, version 2, as 
+    it under the terms of the GNU General Public License, version 2, as
     published by the Free Software Foundation.
 
     This program is distributed in the hope that it will be useful,
@@ -73,6 +73,8 @@ function uw_connect_options() {
   $data_servstat = 'uwc_SERVSTAT';
   $servcat = 'uwc_SERVCAT';
   $data_servcat = 'uwc_SERVCAT';
+  $eOutage_url = 'uwc_EOutage_URL';
+  $data_eOutage_url = 'uwc_EOutage_URL';
 
   // Read in existing option value from database
   $url_val = get_option( $url );
@@ -81,6 +83,7 @@ function uw_connect_options() {
   $myreq_val = get_option( $myreq );
   $servstat_val = get_option( $servstat );
   $servcat_val = get_option( $servcat );
+  $eOutage_url_val = get_option( $eOutage_url );
   if ($myreq_val == '') {
       update_option( $myreq, 'off' );
   }
@@ -93,7 +96,7 @@ function uw_connect_options() {
 
   // See if the user has posted us some information
   // If they did, this hidden field will be set to 'Y'
-  if( isset($_POST[ $hidden_field_name ]) && $_POST[ $hidden_field_name ] == 'Y' ) { 
+  if( isset($_POST[ $hidden_field_name ]) && $_POST[ $hidden_field_name ] == 'Y' ) {
       // Read their posted value
       $url_val = $_POST[ $data_url ];
       $user_val = $_POST[ $data_user ];
@@ -101,6 +104,7 @@ function uw_connect_options() {
       $myreq_val = $_POST[ $data_myreq ];
       $servstat_val = $_POST[ $data_servstat ];
       $servcat_val = $_POST[ $data_servcat ];
+      $eOutage_url_val = $_POST[ $data_eOutage_url ];
 
       $prevmyreq = get_option( $myreq );
       $prevservstat = get_option( $servstat );
@@ -113,6 +117,7 @@ function uw_connect_options() {
       update_option( $myreq, $myreq_val );
       update_option( $servstat, $servstat_val );
       update_option( $servcat, $servcat_val );
+      update_option( $eOutage_url, $eOutage_url_val );
 
       if ( $myreq_val == 'on' ) {
           if (!get_page_by_name('myrequest')) {
@@ -198,6 +203,10 @@ function uw_connect_options() {
 <p><?php _e("ServiceNow Service Status Portal: ", 'menu' ); ?>
 <input type="radio" name="<?php echo $data_servstat; ?>" value="on" <?php echo ($servstat_val=='on')?'checked':'' ?>>ON
 <input type="radio" name="<?php echo $data_servstat; ?>" value="off" <?php echo ($servstat_val=='off')?'checked':'' ?>>OFF
+</p><hr />
+
+<p><?php _e("E_Outage URL:", 'menu' ); ?>
+<input type="text" name="<?php echo $data_eOutage_url; ?>" value="<?php echo $eOutage_url_val; ?>" size="20">
 </p><hr />
 
 <p><?php _e("Service Catalog: ", 'menu' ); ?>
@@ -311,7 +320,7 @@ function create_servicestatus_page() {
             'ping_status' =>  'closed',
             'post_name' => 'servicestatus',
             'post_status' => 'publish',
-            'post_title' => 'ServiceStatus',
+            'post_title' => 'Service Status',
             'post_type' => 'page',
       );
       $newvalue = wp_insert_post( $post, false );
@@ -428,50 +437,52 @@ function service_status() {
       ),
       'timeout' => 25,
   );
- 
-  echo "<h4>eOutages</h4><p>For more information about eOutages, visit <a href=\"https://www.washington.edu/cac/outages\">eOutage Homepage</a><p>";
-  $dom = new DOMDocument();
-  $eOutage = check_e_outage();
-  if (!$eOutage) { 
-		echo "<div class='alert alert-warning' style='margin-top:2em;'>There are no eOutages.</div>"; 
-		}
-  else {
-    $dom->loadHTML($eOutage);
-    $titleArray = array();
-    $dateArray = array();
-    $contentArray = array();
-    $eOutageTitles = $dom->getElementsByTagName('h4');
-    $eOutageDates = $dom->getElementsByTagName('em');
-    $eOutageContent = $dom->getElementsByTagName('div');
-    foreach ($eOutageTitles as $title) {
-        $titleArray[] = $title->nodeValue;
+  $e_Outage_url = get_option('uwc_EOutage_URL');
+  if (!$e_Outage_url) {
+    echo "<div class='alert alert-warning' style='margin-top:2em;'>The eOutage url is not defined. Please contact system admin for further asistance.</div>";
+  } else {
+    echo "<h4>eOutages</h4><p>For more information about eOutages, visit <a href='".$e_Outage_url."'>eOutage Homepage</a><p>";
+    $dom = new DOMDocument();
+    $eOutage = check_e_outage();
+    if (!$eOutage) {
+      echo "<div class='alert alert-warning' style='margin-top:2em;'>There are no eOutages.</div>";
+    } else {
+      $dom->loadHTML($eOutage);
+      $titleArray = array();
+      $dateArray = array();
+      $contentArray = array();
+      $eOutageTitles = $dom->getElementsByTagName('h4');
+      $eOutageDates = $dom->getElementsByTagName('em');
+      $eOutageContent = $dom->getElementsByTagName('div');
+      foreach ($eOutageTitles as $title) {
+          $titleArray[] = $title->nodeValue;
+      }
+      foreach ($eOutageDates as $date) {
+         $dateArray[] = $date->nodeValue;
+      }
+      foreach ($eOutageContent as $content) {
+        $contentArray[] = parse_eoutage($content->textContent);
+      }
+      for ($i=0; $i < count($titleArray) ; $i++) {
+        echo "<div class='servicecontent row'>";
+       	echo "<div class='servicewrap row'>";
+        echo "<span class='glyphicon glyphicon-chevron-right switch' style='display:inline-block;float:left;'></span>";
+        echo "<span class='service_name col-lg-5 col-md-5 col-sm-7 col-xs-7' style='font-weight:bold; display:inline-block;'>".$titleArray[$i]."</span>";
+        echo "<span class='service_time col-lg-4 col-md-4 col-sm-4 col-xs-4' style='color:#aaa; font-size:95%; display:inline-block;'><span class='hidden-sm hidden-xs'></span>".$dateArray[$i]."</span>";
+  			echo "</div>";
+        echo "<ul class='relatedincidents'>";
+        echo "<li class='incident-head row'>";
+        echo "<div class='col-lg-9 col-md-9 col-sm-9 col-xs-9'>Description</div>";
+        echo "</li>";
+    		echo "<div class='col-lg-9 col-md-9 col-sm-9 col-xs-9 inc_sdesc'>" . $contentArray[$i] . "</div>";
+        echo "</li></a>";
+        echo "</ul>";
+        echo "</div><p>";
+      }
     }
-    foreach ($eOutageDates as $date) {
-       $dateArray[] = $date->nodeValue;
-    }
-   foreach ($eOutageContent as $content) {
-      $contentArray[] = parse_eoutage($content->textContent);
-   }
-   for ($i=0; $i < count($titleArray) ; $i++) {
-     			echo "<div class='servicecontent row'>";
-     			echo "<div class='servicewrap row'>";
-                        echo "<span class='glyphicon glyphicon-chevron-right switch' style='display:inline-block;float:left;'></span>";
-                        echo "<span class='service_name col-lg-5 col-md-5 col-sm-7 col-xs-7' style='font-weight:bold; display:inline-block;'>".$titleArray[$i]."</span>";
-                        echo "<span class='service_time col-lg-4 col-md-4 col-sm-4 col-xs-4' style='color:#aaa; font-size:95%; display:inline-block;'><span class='hidden-sm hidden-xs'></span>".$dateArray[$i]."</span>";
-			echo "</div>";
-                        echo "<ul class='relatedincidents'>";
-                        echo "<li class='incident-head row'>";
-                        echo "<div class='col-lg-9 col-md-9 col-sm-9 col-xs-9'>Description</div>";
-                        echo "</li>";
-  			echo "<div class='col-lg-9 col-md-9 col-sm-9 col-xs-9 inc_sdesc'>" . $contentArray[$i] . "</div>";
-                        echo "</li></a>";
-                        echo "</ul>";
-                        echo "</div><p>";
-
-
-	}
-
   }
+
+
   echo "</div>";
   echo "<br><h4>High Priority Incidents</h4>";
 
@@ -487,9 +498,9 @@ function service_status() {
           echo "<div class='alert alert-warning' style='margin-top:2em;'>There are no high priority incidents.</div>";
       }
       $sn_data = array();
-      
+
      foreach ( $IDJSON->records as $record ) {
-          if( !isset( $sn_data[$record->cmdb_ci] ) ) { 
+          if( !isset( $sn_data[$record->cmdb_ci] ) ) {
                   $sn_data[$record->cmdb_ci] = array();
                   unset($first);
               }
@@ -518,15 +529,15 @@ function service_status() {
         $classes[] = $class;
 	}
 
-      if ( !empty( $JSON->records ) ) { 
+      if ( !empty( $JSON->records ) ) {
           $sn_data = array();
           foreach( $JSON->records as $record ) {
 	     // if ($record->cmdb_ci == "") { continue; }
-              if( !isset( $sn_data[$record->cmdb_ci] ) ) { 
+              if( !isset( $sn_data[$record->cmdb_ci] ) ) {
                   $sn_data[$record->cmdb_ci] = array();
                   unset($first);
               }
-	      else { 
+	      else {
 			$first = $sn_data[$record->cmdb_ci][1];  //cannot assume order. load current first for ci
               }
 	      $create = $record->sys_created_on;
@@ -536,7 +547,7 @@ function service_status() {
               if($create < $first) {
                   $first = $create;
               }
-	    
+
               $sn_data[$record->cmdb_ci][] = $record;
 	      $sn_data[$record->cmdb_ci][] = $first;
 
@@ -557,22 +568,22 @@ function service_status() {
 
 
 
-			      if ($count == 0 || $update_time < $current_update_time) { $update_time = $current_update_time; 
+			      if ($count == 0 || $update_time < $current_update_time) { $update_time = $current_update_time;
 
-}			$count++; 
-				
-		
+}			$count++;
+
+
 			}
-		  } 
+		  }
                   $class = $classes[$i];
                   $service = array_search($ci, $sn_data);
                   // handle the case of blank services and switches who's 'name' is a sequence of 5 or more numbers
-                  //if ( $service !== '' && !preg_match('/^\d{5,}$/', $service) ) { 
+                  //if ( $service !== '' && !preg_match('/^\d{5,}$/', $service) ) {
 			if ($service !== '' ) {
 	//print_r( $ci);
 	//		echo $ci[0]['cmdb_ci'];
 			$time = end($ci);
-		   	
+
                     echo "<div class='servicecontent row'>";
                       echo "<div class='servicewrap row'>";
                         echo "<span class='glyphicon glyphicon-chevron-right switch' style='display:inline-block;float:left;'></span>";
@@ -583,7 +594,7 @@ function service_status() {
                       echo "<ul class='relatedincidents'>";
                       echo "<li class='incident-head row'>";
                           echo "<div class='col-lg-3 col-md-3 col-sm-3 col-xs-3'>Incident Number</div>";
-                          echo "<div class='col-lg-9 col-md-9 col-sm-9 col-xs-9'>Description</div>"; 
+                          echo "<div class='col-lg-9 col-md-9 col-sm-9 col-xs-9'>Description</div>";
                       echo "</li>";
                           foreach( $ci as $incident ) {
                             if (!is_string($incident)) {
@@ -594,7 +605,7 @@ function service_status() {
 				  if ($count > 1) { //if there is only one incident, don't show time twice.
 					echo "<div class='col-lg-4 col-md-4 col-sm-4 col-xs-4' style='color:#aaa; font-size:95%; display:inline-block;'><span class='hidden-sm hidden-xs'>Reported at</span> " . $incident->sys_created_on . "<br>Updated at ".$incident->sys_updated_on."</div>";
 					}
-					echo "</li>";                         
+					echo "</li>";
      //echo "</li></a>";
                             }
                           }
