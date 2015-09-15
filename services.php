@@ -231,8 +231,8 @@ function servicecatalog_widgets_init() {
   register_sidebar( array(
     'name'          => 'Service Catalog Sidebar',
     'id'            => 'Service-Catalog-Sidebar',
-    'before_widget' => '<div class="col-md-4 uw-sidebar"><div class="widget widget_nav_menu" >',
-    'after_widget'  => '</div></div>',
+    'before_widget' => '<div class="col-md-4 uw-sidebar">',
+    'after_widget'  => '</div>',
     'before_title'  => '<h2 class="widgettitle">',
     'after_title'   => '</h2>',
   ) );

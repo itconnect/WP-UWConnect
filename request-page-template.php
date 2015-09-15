@@ -40,18 +40,24 @@ if ( isset( $_POST['submitted'] ) && isset( $_POST['comments'] ) ) {
 get_header(); ?>
 <?php while ( have_posts() ) : the_post(); ?>
 
-<div id="main-content" class="row main-content">
-		<div id="content" class="site-content it_container" role="main">
-    <div id="secondary" class="col-lg-3 col-md-3 hidden-sm hidden-xs" role="complementary">
-      <div class="" id="sidebar" role="navigation" aria-label="Sidebar Menu">
-        <?php dynamic_sidebar( 'servicenow-sidebar' ); ?>
-      </div>
-    </div>
-	<div id="primary" class="col-xs-12 col-sm-12 col-md-9 col-lg-9 itsm-primary">
-    
+   <?php get_template_part( 'header', 'image' ); ?>
 
-			<?php
-            the_content();
+<div class="container uw-body">
+
+  <div class="row">
+
+    <div class="col-md-<?php echo (($sidebar[0]!='on') ? '8' : '12' ) ?>
+         uw-content" role='main'>
+
+      <?php uw_site_title(); ?>
+
+      <?php uw_mobile_front_page_menu(); ?>
+
+      <?php service_breadcrumbs(); ?>
+
+      <div id='main_content'  tabindex="-1"> 
+
+	  <?php the_content();
             if ( isset( $user ) ) {
                 if ( isset( $response ) ) {
                     $status = json_decode($response['body'], true);
@@ -329,10 +335,15 @@ get_header(); ?>
 
 
 			?>
-		</div><!-- #content -->
-	</div><!-- #primary -->
-</div><!-- #main-content -->
-
+      </div> <!-- #main-content -->
+   </div> <!-- uw-content -->
+    <div id='sidebar' role='navigation' aria-label='Sidebar Menu'>
+          <?php dynamic_sidebar('Service-Catalog-Sidebar'); ?>
+    </div> <!-- #sidebar -->
+    </div> <!-- row -->
+  </div> <!-- uw-body -->
 <?php
-  endwhile;
-get_footer();
+endwhile;
+get_footer(); ?>
+
+
