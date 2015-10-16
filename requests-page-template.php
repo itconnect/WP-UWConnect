@@ -33,7 +33,7 @@ get_header();
       <?php service_breadcrumbs(); ?>
 
 
-<div id="main-content" tabindex="-1">
+<div id="main-content" tabindex="-1" style="margin-right: 1em" >
         <div class="user-logout row">
           <span class="glyphicon glyphicon-user"></span>&nbsp;<?php echo $user; ?> &nbsp;&nbsp;&nbsp;<a href="<?php echo home_url('/user_logout'); ?>" class="buttonesque" style="vertical-align:text-bottom;">LOGOUT</a>
         </div>
@@ -363,7 +363,7 @@ get_header();
        <?php endwhile; ?>
       </div> <!-- #main-content -->
    </div> <!-- uw-content -->
-    <div id='sidebar' role='navigation' aria-label='Sidebar Menu'>
+    <div id='sidebar' role='navigation' aria-label='Sidebar Menu' style='margin-left: 2em;' >
           <?php dynamic_sidebar('Service-Catalog-Sidebar'); ?>
     </div> <!-- #sidebar -->
     </div> <!-- row -->

@@ -605,7 +605,7 @@ function service_status() {
             }
 echo "</div>";
 }
-  echo "<p class='alert' style='margin-top: 2em;'>Experiencing IT problems not listed on this page? <a href=\"".get_option('uwc_SN_URL')."/uwc.do?sysparm_direct=true#/catalog_order/13234c686f377900328c8bec5d3ee444\">Submit an incident report</a> for any issues you are currently experiencing or call (206) 221-5000. Want to provide feedback about this page? <a href='/itconnect/help'>Get help.</a></p>";
+  echo "<p class='alert' style='margin-top: 2em;'>Experiencing IT problems not listed on this page? <a href=\"".get_option('uwc_SN_URL')."/uwc.do?sysparm_direct=true#/catalog_order/13234c686f377900328c8bec5d3ee444\">Submit an incident report</a> for any issues you are currently experiencing or call (206) 221-5000. </a></p>";
         die();
 }
 add_action( 'wp_ajax_service_status', 'service_status' );

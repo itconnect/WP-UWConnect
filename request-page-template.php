@@ -55,7 +55,7 @@ get_header(); ?>
 
       <?php service_breadcrumbs(); ?>
 
-      <div id='main_content'  tabindex="-1"> 
+      <div id='main_content'  tabindex="-1" style="margin-right: 1em;" > 
 
 	  <?php the_content();
             if ( isset( $user ) ) {
