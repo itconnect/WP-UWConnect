@@ -19,7 +19,8 @@ $posts_query = new WP_Query($args);
     <div class="col-md-<?php echo (($sidebar[0]!="on") ? "8" : "12" ) ?> 
          uw-content" role='main'>
 
-      <?php uw_site_title(); ?>
+      <?php uw_site_title(); ?><span class="udub-slant"><span></span></span><h3 class="uw-site-tagline" >Information technology tools and resources at the UW</h3>
+
 
       <?php uw_mobile_front_page_menu(); ?>
 
