@@ -1,21 +1,26 @@
 <?php
 get_header(); ?>
-    <div id='main-content' class='row main-content'>
-        <div id='content' class='site-content it_container' role='main'>
-            <div id='secondary' class='col-lg-3 col-md-3 hidden-sm hidden-xs' role='complementary'>
-                <div id='sidebar' role='navigation' aria-label='Sidebar Menu'>
-                    <?php dynamic_sidebar('Service-Catalog-Sidebar'); ?>
-                </div> <!-- #sidebar -->
-            </div> <!-- #secondary -->
-            <div id='primary' class='col-xs-12 col-sm-12 col-md-9 col-lg-9'>
-                <?php while (have_posts()) : the_post();
+<?php get_template_part( 'header', 'image' ); ?>
+
+<div class="container uw-body">
+
+  <div class="row">
+
+    <div class="col-md-<?php echo (($sidebar[0]!='on') ? '8' : '12' ) ?>
+         uw-content" role='main'>
+
+      <?php uw_site_title(); ?><span class="udub-slant"><span></span></span><h3 class="uw-site-tagline" >Information technology tools and resources at the UW</h3>
+
+
+      <?php uw_mobile_front_page_menu(); ?>
+
+      <?php service_breadcrumbs(); ?>
+
+      <div id='main_content' class="uw-body-copy" tabindex="-1">
+             <?php while (have_posts()) : the_post();
                 global $post;
                 $id = $post->ID;
-
-                service_breadcrumbs($post);
                 ?>
-
-                <div style='margin-left:25px;'>
                 <h1 class='entry-title'><?php the_title(); ?></h1>
                 <?php if (get_post_meta($id, 'uwc-description', true)) { ?>
                   <div class='attr-wrap'>
@@ -45,7 +50,7 @@ get_header(); ?>
                 <div class='attr-wrap'>
                   <h2 class='service-attr'>Availability</h2>
                   <div class='attr-text'><?php echo wpautop(get_post_meta($id, 'uwc-availability', true)); ?></div>
-                </div>
+               </div>
                 <?php } ?>
                 <?php if (get_post_meta($id, 'uwc-price', true)) { ?>
                 <div class='attr-wrap'>
@@ -88,11 +93,15 @@ get_header(); ?>
                 <?php if (current_user_can('edit_posts')) {
                     edit_post_link('Edit', '<p>', '</p>');
                 } ?>
-                </div>
-                </div>
                 <?php } ?>
                 <?php endwhile; ?>
-            </div> <!-- #primary -->
-        </div> <!-- #content -->
-    </div> <!-- #main-content -->
+       </div> <!-- main_content -->
+     </div> <!-- uw-content -->
+     <div id='sidebar' role='navigation' aria-label='Sidebar Menu'>
+          <?php dynamic_sidebar('Service-Catalog-Sidebar'); ?>
+     </div> <!-- #sidebar -->
+    </div> <!-- row -->
+  </div> <!-- uw-body -->
 <?php get_footer(); ?>
+
+

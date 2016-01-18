@@ -17,14 +17,24 @@ get_header();
  ?>
 <?php while ( have_posts() ) : the_post(); ?>
 
-<div id="main-content" class="main-content row">
-    <div id="content" class="it_container" role="main">
-    <div id="secondary" class="col-lg-3 col-md-3 hidden-sm hidden-xs" role="complementary">
-          <div class="" id="sidebar" role="navigation" aria-label="Sidebar Menu">
-          <?php dynamic_sidebar('servicenow-sidebar'); ?>
-        </div>
-    </div>
-    <div id="primary" class="col-xs-12 col-sm-12 col-md-9 col-lg-9 itsm-primary">
+   <?php get_template_part( 'header', 'image' ); ?>
+
+<div class="container uw-body">
+
+  <div class="row">
+
+    <div class="col-md-<?php echo (($sidebar[0]!='on') ? '8' : '12' ) ?>
+         uw-content" role='main'>
+
+      <?php uw_site_title(); ?><span class="udub-slant"><span></span></span><h3 class="uw-site-tagline" >Information technology tools and resources at the UW</h3>
+
+
+      <?php uw_mobile_front_page_menu(); ?>
+
+      <?php service_breadcrumbs(); ?>
+
+
+<div id="main-content" tabindex="-1" style="margin-right: 1em" >
         <div class="user-logout row">
           <span class="glyphicon glyphicon-user"></span>&nbsp;<?php echo $user; ?> &nbsp;&nbsp;&nbsp;<a href="<?php echo home_url('/user_logout'); ?>" class="buttonesque" style="vertical-align:text-bottom;">LOGOUT</a>
         </div>
@@ -351,12 +361,13 @@ get_header();
                 }
                 ?>
                         <p class="alert alert-info" style="margin-top:10px;">Not seeing your request?  You may need to log in using a different UW NetID. Want to provide feedback? Please email <a href="mailto:help@uw.edu">help@uw.edu</a>.</p>
+       <?php endwhile; ?>
+      </div> <!-- #main-content -->
+   </div> <!-- uw-content -->
+    <div id='sidebar' role='navigation' aria-label='Sidebar Menu' style='margin-left: 2em;' >
+          <?php dynamic_sidebar('Service-Catalog-Sidebar'); ?>
+    </div> <!-- #sidebar -->
+    </div> <!-- row -->
+  </div> <!-- uw-body -->
+<?php get_footer(); ?>
 
-              <?php endwhile; ?>
-                </div>
-		</div><!-- #content -->
-	</div><!-- #primary -->
-</div><!-- #main-content -->
-
-<?php
-get_footer();

@@ -231,9 +231,9 @@ function servicecatalog_widgets_init() {
   register_sidebar( array(
     'name'          => 'Service Catalog Sidebar',
     'id'            => 'Service-Catalog-Sidebar',
-    'before_widget' => '<div>',
+    'before_widget' => '<div class="col-md-4 uw-sidebar">',
     'after_widget'  => '</div>',
-    'before_title'  => '<h2 class="rounded">',
+    'before_title'  => '<h2 class="widgettitle">',
     'after_title'   => '</h2>',
   ) );
 
@@ -245,11 +245,11 @@ function taxonomy_list_shortcode($atts) {
     $terms = get_terms($tax);
     $taxonomy = get_taxonomy($tax);
     #$output = '<h4 class="tax-head">' . $taxonomy->labels->name . '</h4>';
-    $output = '<ul style="list-style-type:none; padding-left:0px; margin-left:15px;">';
+    $output = '<ul style="list-style-type:none; ">';
     $siteurl = site_url();
     foreach ($terms as $term) {
         $url = $siteurl . '/' . $tax .  '/' . $term->slug;
-        $output .= '<a href="' . $url . '"><li style="font-size:14pt;">' . $term->name . '</li></a>';
+        $output .= '<li class="service-link"><a href="' . $url . '">' . $term->name . '</a></li>';
         $output .= '<p style="margin-left:25px;">' . $term->description . '</p>';
     }
     $output .= '</ul>';
@@ -264,19 +264,19 @@ add_filter('template_include', 'service_page_template', 1);
 
 function service_page_template($template) {
     global $post;
-    if ( $post->post_type == 'service' && basename( $template ) == "single.php" ) {
+    if ( $post->post_type == 'service' && ( basename( $template ) == "single.php" || basename( $template) == "index.php") ) {
         $new_template = dirname(__FILE__) . '/single-service.php';
         if ( '' != $new_template ) {
             return $new_template;
         }
     } else if ( $post->post_type == 'service' && basename( $template ) == "archive.php" && is_tax('servicecategory')) {
         $new_template = dirname(__FILE__) . '/taxonomy-servicecategory.php';
-        if ( '' != $new_template ) { 
+        if ( '' != $new_template ) {
             return $new_template;
         }
     } else if ( $post->post_type == 'service' && basename( $template ) == "archive.php" && is_tax('views')) {
         $new_template = dirname(__FILE__) . '/taxonomy-views.php';
-        if ( '' != $new_template ) { 
+        if ( '' != $new_template ) {
             return $new_template;
         }
     }
@@ -288,18 +288,24 @@ function service_breadcrumbs($post = '') {
     $service_title;
     $homepagetitle = 'Service Catalog';
     $homepageslug = 'services';
+    $azlisttitle = 'Services A-Z';
+    $azlistlug = 'servicesaz';
     if ( !empty($post) && $post->post_type == 'service' ) {
         $service_title = $post->post_title;
     }
-    echo "<div class='breadcrumbs-container' style='margin-left:0px;'>";
-    echo "<ul class='breadcrumbs-list'>";
+    echo "<nav class='uw-breadcrumbs' role='navigation' aria-label='breadcrumbs' >";
+    echo "<ul>";
     if (isset($service_title)) {
+        echo "<li ><a title='UW Home Page' href='http://uw.edu/'>_</a></li>";
+        echo "<li ><a href=" . get_site_url() . ">IT Connect</a></li>";
         echo "<li><a title='" . $homepagetitle . "' href='" . get_site_url() . "/" . $homepageslug . "'>" . $homepagetitle . "</a></li>";
-        echo "<li class='current'><a title='" . $post->post_title . "' href='" . get_permalink() . "'>" . $post->post_title . "</a></li>";
-    } else {
+        echo "<li class='current'><a title='" . $azlisttitle . "' href='" . get_site_url() . "/" . $azlistlug . "'>" . $azlisttitle . "</a></li>";
+    } else { 
+        echo "<li ><a href='http://uw.edu/'>_</a></li>";
+        echo "<li ><a href=" . get_site_url() . ">IT Connect</a></li>";
         echo "<li class='current'><a title='" . $homepagetitle . "' href='" . get_site_url() . "/" . $homepageslug . "'>" . $homepagetitle . "</a></li>";
     }
     echo "</ul>";
-    echo "</div>";
+    echo "</nav>";
 }
 ?>
