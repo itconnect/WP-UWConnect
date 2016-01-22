@@ -12,8 +12,8 @@ if ( isset( $_SERVER['REMOTE_USER'] ) ) {
 } else if ( isset( $_SERVER['PHP_AUTH_USER'] ) ) {
     $user = $_SERVER['PHP_AUTH_USER'];
 }
-get_header();
 
+get_header();
  ?>
 <?php while ( have_posts() ) : the_post(); ?>
 

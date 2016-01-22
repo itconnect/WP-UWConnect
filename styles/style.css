@@ -22,6 +22,8 @@
 
 .request-list-number { }
 
+span.request-list-number[aria-labelledby="col_head_num"]  {font-size: 13px;  }
+
 .itsm-primary {
     padding-top: 38px;
 }
