@@ -257,7 +257,7 @@ get_header(); ?>
                         echo "</td></tr>";
                         echo "</table>";
 			if ($sn_type !== 'item (RITM)') {
-                        echo "<h3 style='margin-top:2em;'>Description:</h3><div><pre>" . stripslashes($record->description) . " </pre></div>";
+                        echo "<h3 style='margin-top:2em;'>Description:</h3><div><pre>" . $record->description . " </pre></div>";
 }
                         //Set up comment box
                         if(!$error_flag && $record->state != "Closed" ) {
@@ -323,9 +323,9 @@ get_header(); ?>
                                 $display_user = "SUPPORT STAFF";
                             }
                             echo "<div class='comment-timestamp'><strong class='user_name'>$display_user</strong> <span class='create-date'>$comment->sys_created_on</span></div>";
-                            echo "<pre style='white-space:pre-wrap'>";
-                            echo stripslashes($comment->value);
-                            echo "</pre>";
+                            //echo "<pre style='white-space:pre-wrap'>";
+                            echo $comment->value;
+                            //echo "</pre>";
                             echo "</div>";
                             echo "</li>";
                         }
