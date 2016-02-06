@@ -323,9 +323,9 @@ get_header(); ?>
                                 $display_user = "SUPPORT STAFF";
                             }
                             echo "<div class='comment-timestamp'><strong class='user_name'>$display_user</strong> <span class='create-date'>$comment->sys_created_on</span></div>";
-                            //echo "<pre style='white-space:pre-wrap'>";
+                            echo "<pre style='white-space:pre-wrap'>";
                             echo $comment->value;
-                            //echo "</pre>";
+                            echo "</pre>";
                             echo "</div>";
                             echo "</li>";
                         }
