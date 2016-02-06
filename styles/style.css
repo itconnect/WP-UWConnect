@@ -207,3 +207,5 @@ span.request-list-number[aria-labelledby="col_head_num"]  {font-size: 13px;  }
 #fold {
     border: 0.5px solid #666666;
 }
+
+pre.prettyprint [class]  {color: #333 !important;}
