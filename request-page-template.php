@@ -324,7 +324,17 @@ get_header(); ?>
                             }
                             echo "<div class='comment-timestamp'><strong class='user_name'>$display_user</strong> <span class='create-date'>$comment->sys_created_on</span></div>";
                             echo "<pre style='white-space:pre-wrap'>";
-                            echo $comment->value;
+                        
+
+			   $comment->value = str_replace('src="','src="'.get_option( 'uwc_SN_URL' ),$comment->value);
+
+                          $comment->value = str_replace('[code]','',$comment->value);
+
+                              $comment->value = str_replace('[/code]','',$comment->value);
+
+
+
+			    echo $comment->value;
                             echo "</pre>";
                             echo "</div>";
                             echo "</li>";
