@@ -20,8 +20,12 @@ function check_e_outage() {
         $data = curl_exec($ch); // Executing the cURL request and assigning the returned data to the $data variable
         curl_close($ch);    // Closing cURL 
    
-	$status = scrape_between($data, "<div class=\"status\">", "</body>");
-	if (strpos($data, "not operating normally")) {
+//	$status = scrape_between($data, "<div class=\"status\">", "</body>");
+  $status = scrape_between($data, "<div class=\"status\">", "</div></div>");
+	if (!strpos($data, "All systems operating normally")) {
+
+
+//	if (strpos($data, "not operating normally")) {
 		return $status;
 	}
 	else { return false; }
@@ -36,7 +40,7 @@ function check_e_outage() {
     }
 
   function parse_eoutage($msg) {
-	$data = substr($msg, 31); //strip Updated text
+	$data = substr($msg, 33); //strip Updated text
 	$data = substr($data, 0, stripos($data, "Information sent to the eOutage mailing list is also posted online"));
 	return $data;
 
