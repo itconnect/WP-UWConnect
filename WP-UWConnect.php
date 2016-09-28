@@ -573,8 +573,8 @@ function service_status() {
 	//		echo $ci[0]['cmdb_ci'];
 			$time = end($ci);
 		   	
-                    echo "<div class='servicecontent row'>";
-                      echo "<div class='servicewrap row'>";
+                    echo "<div class='servicecontent row' >";
+                      echo "<div class='servicewrap row' style='width: 119%' >";
                         echo "<span class='glyphicon glyphicon-chevron-right switch' style='display:inline-block;float:left;'></span>";
                         echo "<span class='service_name col-lg-5 col-md-5 col-sm-7 col-xs-7' style='font-weight:bold; display:inline-block;'>".$service." (".$count.")</span>";
                         echo "<span class='service_class hidden-xs hidden-sm col-lg-2 col-md-2' style='display:inline-block; font-size:90%;'>$class</span>";
@@ -588,9 +588,12 @@ function service_status() {
                           foreach( $ci as $incident ) {
                             if (!is_string($incident)) {
                              // echo "<a href='/itconnect/incident/$incident->number'><li class='incident row'>";
+				$sdwidth="";
+				if ($count == 1) { $sdWidth = "style='width: 75%'"; }
 				echo "<li class='incident row'>";
-                                  echo "<div class='col-lg-3 col-md-3 col-sm-3 col-xs-3 '>" . $incident->number . "</div>";
-                                  echo "<div class='col-lg-4 col-md-4 col-sm-4 col-xs-4 inc_sdesc'>" . $incident->short_description . "</div>";
+// lass='col-lg-3 col-md-3 col-sm-3 col-xs-3
+                                  echo "<div class='col-md-3 col-sm-3 col-xs-3'>" . $incident->number . " </div>";
+                                  echo "<div class='col-lg-4 col-md-4 col-sm-4 col-xs-4 inc_desc' $sdWidth>" . $incident->short_description . "</div>";
 				  if ($count > 1) { //if there is only one incident, don't show time twice.
 					echo "<div class='col-lg-4 col-md-4 col-sm-4 col-xs-4' style='color:#aaa; font-size:95%; display:inline-block;'><span class='hidden-sm hidden-xs'>Reported at</span> " . $incident->sys_created_on . "<br>Updated at ".$incident->sys_updated_on."</div>";
 					}
