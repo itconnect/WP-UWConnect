@@ -45,7 +45,7 @@ document.getElementById('feedURL').innerHTML = "Your UW-IT Service Status RSS Fe
    		<h1 class="entry-title hidden-phone">Service Status RSS Feed</h1>
 
 		<div class="entry-content">
-	UW-IT syndicates <strong>current</strong> eOutage and High Priority Incident information as an RSS feed. To generate the subscription URL, select the kind of status update(s) you would like to subscribe to:
+	UW-IT syndicates <strong>current</strong> eOutage and High Priority Incident information as an RSS feed. To generate the subscription URL, select the kind of status updates you would like to subscribe to:
 <p><p>
 <form name="feedOptions" action="#" id="feedOptions">
 <input type="radio" name="feedOption" value="eoutage" onClick="makeURL('eoutage');"> eOuatges<br>
