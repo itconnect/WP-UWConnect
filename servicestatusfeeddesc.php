@@ -10,7 +10,7 @@ else { myURL = myURL.replace('desc',''); }
 //document.getElementById('feedURL').style.cssText = "border: 1px; font-size: bigger;";
 
 document.getElementById('feedURL').style.display="block";
-document.getElementById('feedURL').style.cssText="color:green;border-top: solid black;border-right: solid black;border-left: solid black;border-bottom: solid black;padding: 10px;border-radius: 10px;font-size: 125%;";
+document.getElementById('feedURL').style.cssText="color:green;border-top: solid black;border-right: solid black;border-left: solid black;border-bottom: solid black;padding: 10px;border-radius: 10px;font-size: 125%;text-align:center;";
 document.getElementById('feedURL').innerHTML = "Your UW-IT Service Status RSS Feed URL is:<br>"+myURL ;
 
 
