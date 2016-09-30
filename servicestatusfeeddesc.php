@@ -1,7 +1,7 @@
 <script language="JavaScript">
 function makeURL(type) {
 var myURL = document.URL;
-muURL = myURL.replace('http','https');
+myURL = myURL.replace('http:','https:');
 if (type == 'eoutage') { myURL = myURL.replace('desc','/eoutage'); }
 else if (type == 'incidents') { myURL = myURL.replace('desc','/incidents'); }
 else { myURL = myURL.replace('desc',''); }
