@@ -19,7 +19,9 @@ document.getElementById('feedURL').innerHTML = "Your UW-IT Service Status RSS Fe
 
 </script>
 
-
+<style>
+.first-icon { display: none; }
+.second-icon {display: none; }
 
 <?	get_header(); ?>
 
@@ -48,9 +50,9 @@ document.getElementById('feedURL').innerHTML = "Your UW-IT Service Status RSS Fe
 	UW-IT syndicates <strong>current</strong> eOutage and High Priority Incident information as an RSS feed. To generate the subscription URL, select the kind of status updates you would like to subscribe to:
 <p><p>
 <form name="feedOptions" action="#" id="feedOptions">
-<input type="radio" name="feedOption" value="eoutage" onClick="makeURL('eoutage');"> eOuatges<br>
-<input type="radio" name="feedOption" value="incidents" onClick="makeURL('incidents');"> High Priority Incidents<br>
-<input type="radio" name="feedOption" value="eoutage" onClick="makeURL('all');"> Both<br>
+<input type="radio" name="feedOption" value="eoutage" onClick="makeURL('eoutage');"/> eOuatges<br>
+<input type="radio" name="feedOption" value="incidents" onClick="makeURL('incidents');"/> High Priority Incidents<br>
+<input type="radio" name="feedOption" value="eoutage" onClick="makeURL('all');"/> Both<br>
 </form>
 <div id="feedURL" style="display: none;"></div>
 
