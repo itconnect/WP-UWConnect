@@ -28,7 +28,7 @@
 		<div class="entry-content">
 			<p>This page shows active eOutages and High priority
                 incidents for UW Seattle, Bothell, and Tacoma network 
-                and computing services managed by UW Information Technology.</p>
+                and computing services managed by UW Information Technology.</p><p>You may also <a href="/servicestatusdesc">Subscribe to Service Status RSS Feeds</a>.
 <?php //if (check_e_outage()) { echo "<p><div class='alert alert-warning' style='margin-top:2em;'>There have been <a href='https://www.washington.edu/cac/outages' target='_blank'>eOutages</a> reported</div>"; } ?>
 					<?php the_content(); ?>
 					<?php wp_link_pages( array( 'before' => '<div class="page-link"><span>' . __( 'Pages:', 'twentyeleven' ) . '</span>', 'after' => '</div>' ) );
@@ -52,13 +52,12 @@
     <div id='sidebar' role='navigation' aria-label='Sidebar Menu'>
           <?php dynamic_sidebar('Service-Catalog-Sidebar'); ?>
     </div> <!-- #sidebar -->
-        <div class="push"></div>
-  </div>
-<!-- #wrap -->
+     <!--   <div class="push"></div>
+  </div> -->
    <script>
        servicestatus();
    </script>
-    </div> <!-- uw-content -->
+     <!-- uw-content -->
     </div> <!-- row -->
   </div> <!-- uw-body -->
 <?php get_footer(); ?>

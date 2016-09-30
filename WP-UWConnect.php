@@ -136,18 +136,32 @@ function uw_connect_options() {
           if (!get_page_by_name('servicestatus')) {
               create_servicestatus_page();
           }
+	  if (!get_page_by_name('servicestatusfeed')) {
+		create_servicestatusfeed_page();
+		}
+		 if (!get_page_by_name('servicestatusfeeddesc')) {
+                create_servicestatusfeeddesc_page();
+                }
+
       } else if ( $servstat_val == 'off' && $prevservstat == 'on' ) {
           $sspage = get_page_by_name('servicestatus');
           $incpage = get_page_by_name('incident');
+	  $ssfeed = get_page_by_name('servicestatusfeed');
+	  $ssfeeddesc =  get_page_by_name('servicestatusfeeddesc');
+	  wp_delete_post($ssfeed->ID, true);
           wp_delete_post( $sspage->ID, true );
           wp_delete_post( $incpage->ID, true );
+	 wp_delete_post($ssfeeddesc->ID, true);
+
       } else {
       }
 
       if ( $servcat_val == 'on' ) {
           create_service_home_page();
           create_servicecategories_page();
-          create_serviceAZ_page();
+          create_servicestatusfeed_page();
+          create_servicestatusfeeddesc_page();
+	  create_serviceAZ_page();
       } else if ( $servcat_val == 'off' && $prevservcat == 'on' ) {
           $shpage = get_page_by_name('services');
           $scpage = get_page_by_name('servicecategories');
@@ -215,18 +229,25 @@ function uw_connect_options() {
 
 function add_query_vars($qvars) {
     $qvars[] = "ticketID";
+    $qvars[] = "eoutage";
+    $qvars[] = "instance";
+    $qvars[] = "incidents";
+    $qvars[] = "feedType";
     return $qvars;
 }
 add_filter('query_vars', 'add_query_vars');
 
 function add_rewrite_rules($aRules) {
     $aNewRules = array('incident/([^/]+)/?$' => 'index.php?pagename=incident&ticketID=$matches[1]');
-    $bNewRules = array('myrequest/([^/]+)/?$' => 'index.php?pagename=myrequest&ticketID=$matches[1]');
-    $aRules = $bNewRules + $aNewRules + $aRules;
+    $bNewRules = array('myrequest/([^/]+)/?$' => 'index.php?pagename=myrequrst&ticetID=$matches[1]');
+ //   $cNewRules = array('servicestatusfeed/([^/]+)/?$' => 'index.php?pagename=servicestatusfeed&feedType=$matches[1]');
+ $ssRule = array('servicestatusfeed/([^/]+)/?$' => 'index.php?pagename=servicestatusfeed&feedType=$matches[1]');
+ 
+
+   $aRules = $bNewRules + $ssRule + $aNewRules + $aRules;
     return $aRules;
 }
 add_filter('rewrite_rules_array', 'add_rewrite_rules');
-
 function options_setup() {
     if (!get_option('uwc_MYREQ')) {
       update_option('uwc_MYREQ', 'off');
@@ -270,6 +291,39 @@ function create_incident_page() {
     }
 }
 register_activation_hook(__FILE__, 'create_incident_page');
+
+function create_servicestatusfeed_page() {
+$post = array(
+            'comment_status' => 'open',
+            'ping_status' =>  'closed',
+            'post_name' => 'servicestatusfeed',
+            'post_status' => 'publish',
+            'post_title' => 'Service Status Feed',
+            'post_type' => 'page',
+      );
+      $newvalue = wp_insert_post( $post, false );
+      update_option( 'servicestatusfeed', $newvalue );
+    }
+register_activation_hook(__FILE__, 'create_servicestatusfeed_page');
+
+
+
+function create_servicestatusfeeddesc_page() {
+$post = array(
+            'comment_status' => 'open',
+            'ping_status' =>  'closed',
+            'post_name' => 'servicestatusfeeddesc',
+            'post_status' => 'publish',
+            'post_title' => 'Service Status Feed',
+            'post_type' => 'page',
+      );
+      $newvalue = wp_insert_post( $post, false );
+      update_option( 'servicestatusfeeddesc', $newvalue );
+    }
+register_activation_hook(__FILE__, 'create_servicestatusfeedcesc_page');
+
+
+
 
 function create_request_page() {
     if (!get_page_by_name('myrequest') && get_option('uwc_MYREQ') == 'on') {
@@ -416,6 +470,26 @@ function request_page_template( $template ) {
       }
     }
   }
+ if ( is_page( 'servicestatusfeed' ) ) {
+    if ( basename( get_page_template() ) == "page.php" ) {
+      $new_template = dirname(__FILE__) . '/servicestatusfeed.php';
+      if ( '' != $new_template ) {
+        return $new_template ;
+      }
+    }
+  }
+
+
+ if ( is_page( 'servicestatusfeeddesc' ) ) {
+    if ( basename( get_page_template() ) == "page.php" ) {
+      $new_template = dirname(__FILE__) . '/servicestatusfeeddesc.php';
+      if ( '' != $new_template ) {
+        return $new_template ;
+      }
+    }
+  }
+
+
   return $template;
 }
 add_filter( 'template_include', 'request_page_template');
