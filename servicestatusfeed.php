@@ -11,7 +11,7 @@ error_reporting(E_ALL);
     $rssfeed .= '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">';
     $rssfeed .= '<channel>';
     $rssfeed .='<atom:link href="https://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'].'" rel="self" type="application/rss+xml" />';
-    $rssfeed .= '<title>UW-IT eOutages and High Priotity Incidents</title>';
+    $rssfeed .= '<title>UW-IT eOutages and High Priority Incidents</title>';
     $rssfeed .= '<link>https://itconnect.uw.edu/servicestatus</link>';
     $rssfeed .= '<description>UW-IT eOutages and High Priority Incidents</description>';
     $rssfeed .= '<language>en-us</language>';
