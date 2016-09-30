@@ -6,6 +6,11 @@ if (type == 'eoutage') { myURL = myURL.replace('desc','/eoutage'); }
 else if (type == 'incidents') { myURL = myURL.replace('desc','/incidents'); }
 else { myURL = myURL.replace('desc',''); }
 
+
+//document.getElementById('feedURL').style.cssText = "border: 1px; font-size: bigger;";
+
+document.getElementById('feedURL').style.display="block";
+document.getElementById('feedURL').style.cssText="color:green;border-top: solid black;border-right: solid black;border-left: solid black;border-bottom: solid black;padding: 10px;border-radius: 10px;font-size: 125%;";
 document.getElementById('feedURL').innerHTML = "Your UW-IT Service Status RSS Feed URL is:<br>"+myURL ;
 
 
@@ -40,15 +45,14 @@ document.getElementById('feedURL').innerHTML = "Your UW-IT Service Status RSS Fe
    		<h1 class="entry-title hidden-phone">Service Status RSS Feed</h1>
 
 		<div class="entry-content">
-	UW-IT syndicates <strong>current</strong> eOutage and High Priotity Incident information as an RSS feed. To generate the subscription URL, select from the options below.
+	UW-IT syndicates <strong>current</strong> eOutage and High Priotity Incident information as an RSS feed. To generate the subscription URL, select the kind of status update(s) you would like to subscribe to:
 <p><p>
-Select the Service Status you wish to receive updates about:<p>
 <form name="feedOptions" action="#" id="feedOptions">
 <input type="radio" name="feedOption" value="eoutage" onClick="makeURL('eoutage');"> eOuatge<br>
-<input type="radio" name="feedOption" value="incidents" onClick="makeURL('incidents');"> High Priority Incidentse<br>
+<input type="radio" name="feedOption" value="incidents" onClick="makeURL('incidents');"> High Priority Incidents<br>
 <input type="radio" name="feedOption" value="eoutage" onClick="makeURL('all');"> Both<br>
 </form>
-<div id="feedURL"></div>
+<div id="feedURL" style="display: none;"></div>
 
 </div>
 				</div><!-- .entry-content -->
