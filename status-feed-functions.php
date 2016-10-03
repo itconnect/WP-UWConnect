@@ -6,7 +6,7 @@ include('eoutage-functions.php');
 
 
 function getIncidentsAndeOutages() {
-include_once('config.php');
+include ('config.php');
 
  $hash = base64_encode( get_option('uwc_SN_USER') . ':' . get_option('uwc_SN_PASS') );
   $args = array(
