@@ -3,7 +3,7 @@
 
 
 function check_e_outage() {
-   $url = "https://www.washington.edu/cac/outages";
+   $url = "https://eoutage.uw.edu";
   $options = Array(
             CURLOPT_RETURNTRANSFER => TRUE,  // Setting cURL's option to return the webpage data
             CURLOPT_FOLLOWLOCATION => TRUE,  // Setting cURL to follow 'location' HTTP headers

@@ -503,7 +503,7 @@ function service_status() {
       'timeout' => 25,
   );
  
-  echo "<h4>eOutages</h4><p>For more information about eOutages, visit <a href=\"https://www.washington.edu/cac/outages\">eOutage Homepage</a><p>";
+  echo "<h4>eOutages</h4><p>For more information about eOutages, visit <a href=\"https://eoutage.uw.edu\">eOutage Homepage</a><p>";
   $dom = new DOMDocument();
   $eOutage = check_e_outage();
   if (!$eOutage) { 
