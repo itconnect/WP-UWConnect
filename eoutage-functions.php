@@ -41,7 +41,7 @@ if ($eoutage == "false") { return false; }
     }
 
   function parse_eoutage2($msg) {
-	$data = substr($msg, 33); //strip Updated text
+	$data = substr($msg, 32); //strip Updated text
        $data = substr($data, 0, stripos($data, "Information sent to the eOutage mailing list is also posted online"));
 	
 	return $data;
