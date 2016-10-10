@@ -4,6 +4,10 @@
 
 function check_e_outage() {
    $url = "https://eoutage.uw.edu";
+if ( get_option('uwc_SN_URL') != "https://uw.service-now.com") { 
+	$url = "https://eoutage-test.uw.edu";
+}
+
   $options = Array(
             CURLOPT_RETURNTRANSFER => TRUE,  // Setting cURL's option to return the webpage data
             CURLOPT_FOLLOWLOCATION => TRUE,  // Setting cURL to follow 'location' HTTP headers
@@ -40,7 +44,7 @@ function check_e_outage() {
     }
 
   function parse_eoutage($msg) {
-	$data = substr($msg, 33); //strip Updated text
+	$data = substr($msg, 32); //strip Updated text
 	$data = substr($data, 0, stripos($data, "Information sent to the eOutage mailing list is also posted online"));
 	return $data;
 
