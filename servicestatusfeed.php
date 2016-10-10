@@ -30,7 +30,7 @@ if ($itemArray != false) {
 		$rssfeed .= "<item>";
 		$rssfeed .="<title>".$item['service']." (".$item['type'].")</title>";
 		$rssfeed .="<description>".$item['title']."</description>"; 
-		if ($item['type'] == "eOutage") { $rssfeed .= "<link>https://www.washington.edu/cac/outages</link>";}
+		if ($item['type'] == "eOutage") { $rssfeed .= "<link>https://eoutage.uw.edu</link>";}
 		else { $rssfeed .= "<link>https://itconnect.uw.edu/servicestatus</link>"; }
 		$time = new DateTime($item['time']);
 		$time = gmdate(DATE_RSS, $time->getTimestamp());

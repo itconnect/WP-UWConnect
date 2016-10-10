@@ -4,10 +4,9 @@
 function check_e_outage2() {
 include('config.php'); 
  if ($instance == "prod" || $instance == "production") {
- $url = "https://www.washington.edu/cac/outages";}
+ $url = "https://eoutage.uw.edu";}
 else {
-	$url = "https://staff.washington.edu/pewhite/eoutage-test";
-}
+	$url = "https://eoutage-test.uw.edu";}
 if ($eoutage == "false") { return false; }
   $options = Array(
             CURLOPT_RETURNTRANSFER => TRUE,  // Setting cURL's option to return the webpage data
