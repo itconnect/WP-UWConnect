@@ -133,6 +133,9 @@ function uw_connect_options() {
           if (!get_page_by_name('incident')) {
               create_incident_page();
           }
+           if (!get_page_by_name('changecalendar')) {
+                         create_change_calendar_page();
+                                   }
           if (!get_page_by_name('servicestatus')) {
               create_servicestatus_page();
           }
@@ -144,11 +147,13 @@ function uw_connect_options() {
                 }
 
       } else if ( $servstat_val == 'off' && $prevservstat == 'on' ) {
-          $sspage = get_page_by_name('servicestatus');
+         $calpage = get_page_by_name('changecalendar');
+         $sspage = get_page_by_name('servicestatus');
           $incpage = get_page_by_name('incident');
 	  $ssfeed = get_page_by_name('servicestatusfeed');
 	  $ssfeeddesc =  get_page_by_name('servicestatusfeeddesc');
-	  wp_delete_post($ssfeed->ID, true);
+	wp_delete_post($calpage->ID, true);
+    wp_delete_post($ssfeed->ID, true);
           wp_delete_post( $sspage->ID, true );
           wp_delete_post( $incpage->ID, true );
 	 wp_delete_post($ssfeeddesc->ID, true);
@@ -157,6 +162,7 @@ function uw_connect_options() {
       }
 
       if ( $servcat_val == 'on' ) {
+          create_change_calendar_page();
           create_service_home_page();
           create_servicecategories_page();
           create_servicestatusfeed_page();
@@ -276,6 +282,24 @@ function create_service_home_page() {
 }
 register_activation_hook(__FILE__, 'create_service_home_page');
 
+function create_change_calendar_page() {
+if (!get_page_by_name('services') && get_option('uwc_SERVCAT') == 'on') {
+      $post = array(
+         'comment_status' => 'open',
+         'ping_status' =>  'closed',
+         'post_name' => 'changecal',
+           'post_status' => 'publish',
+           'post_title' => 'Change Calendar',
+            'post_type' => 'page',
+            );
+              $newvalue = wp_insert_post( $post, false );
+               update_option( 'changecal', $newvalue );
+                  }
+
+
+}
+
+register_activation_hook(__FILE__, 'create_change_calendar_page');
 function create_incident_page() {
     if (!get_page_by_name('incident') && get_option('uwc_SERVSTAT') == 'on') {
       $post = array(
@@ -470,7 +494,18 @@ function request_page_template( $template ) {
       }
     }
   }
- if ( is_page( 'servicestatusfeed' ) ) {
+
+if ( is_page( 'changecal' ) ) {
+    if ( basename( get_page_template() ) == "page.php" ) {
+          $new_template = dirname(__FILE__) . '/calendar-template.php';
+                if ( '' != $new_template ) {
+                        return $new_template ;
+                              }
+                                  }
+                                    }
+
+
+if ( is_page( 'servicestatusfeed' ) ) {
     if ( basename( get_page_template() ) == "page.php" ) {
       $new_template = dirname(__FILE__) . '/servicestatusfeed.php';
       if ( '' != $new_template ) {
@@ -493,6 +528,34 @@ function request_page_template( $template ) {
   return $template;
 }
 add_filter( 'template_include', 'request_page_template');
+
+function change_calendar() { ?>
+
+<script>
+
+    $(document).ready(function() {
+
+        $('#calendar').fullCalendar({
+            theme: true,
+            header: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'month,agendaWeek,agendaDay,listMonth'
+            },
+            navLinks: true, // can click day/week names to navigate views
+            eventLimit: true, // allow "more" link when too many events
+             events: 'caldata.php'
+
+});
+
+    });
+
+</script>
+
+
+
+<?}
+
 
 function service_status() {
   $hash = base64_encode( get_option('uwc_SN_USER') . ':' . get_option('uwc_SN_PASS') );
@@ -687,6 +750,10 @@ echo "</div>";
 }
 add_action( 'wp_ajax_service_status', 'service_status' );
 add_action( 'wp_ajax_nopriv_service_status', 'service_status' );
+
+
+
+
 
 function enable_ajax() {
   wp_enqueue_script( 'services', plugin_dir_url( __FILE__ ) . 'service.js', 'jquery', true);
