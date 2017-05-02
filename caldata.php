@@ -22,14 +22,15 @@ foreach ($JSONDATES->records as $event) {
     $title = $event->short_description;
     $startTime = $event->start_date;
     $endTime = $event->end_date;
-    if (array_key_exists($event->cmdb_ci, $colors)) { $color = $colors[$event->cmdb_ci]; }
+    if (array_key_exists($event->u_cab, $colors)) { $color = $colors[$event->cmdb_ci]; }
     else {
         $color = make_color($colors);
-        $colors[$event->cmdb_ci] = $color;
+        $colors[$event->u_cab] = $color;
     }
     $oneEvent = array(
         "title" => $title,
         "start" => $startTime,
+	"timezone" => "America/Los_Angeles",
         "end" => $endTime,
         "color" => $color,
         "allDay" => false);
@@ -47,6 +48,7 @@ foreach ($JSONMNC->records as $mncday) {
         "title" => $title,
         "start" => $startTime,
         "end" => $endTime,
+	"timezone" => "America/Los_Angeles",
         "color"=>'black',
         "allDay" => false);
     array_push($events, $oneEvent);
