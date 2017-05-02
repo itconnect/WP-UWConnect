@@ -54,6 +54,7 @@
                 center: 'title',
                 right: 'month,agendaWeek,agendaDay,listMonth'
             },
+            nextDayThreshold: '00:00:00',
             navLinks: true, // can click day/week names to navigate views
             eventLimit: true, // allow "more" link when too many events
              events: '/wp-content/plugins/WP-UWConnect/caldata.php'

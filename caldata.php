@@ -21,8 +21,12 @@ $JSONDATES = get_SN3("/change_request_list.do?JSONv2&sysparm_query=approval%3Dap
 foreach ($JSONDATES->records as $event) {
     $title = $event->short_description;
     $startTime = $event->start_date;
+    $time = strtotime($startTime." UTC");
+    $startTime = date("Y-m-d\TH:i:s", $time);
     $endTime = $event->end_date;
-    if (array_key_exists($event->u_cab, $colors)) { $color = $colors[$event->cmdb_ci]; }
+    $time = strtotime($endTime." UTC");
+    $endTime = date("Y-m-d\TH:i:s", $time);
+if (array_key_exists($event->u_cab, $colors)) { $color = $colors[$event->cmdb_ci]; }
     else {
         $color = make_color($colors);
         $colors[$event->u_cab] = $color;
@@ -30,7 +34,6 @@ foreach ($JSONDATES->records as $event) {
     $oneEvent = array(
         "title" => $title,
         "start" => $startTime,
-	"timezone" => "America/Los_Angeles",
         "end" => $endTime,
         "color" => $color,
         "allDay" => false);
