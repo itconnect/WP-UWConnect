@@ -70,14 +70,14 @@
     <div id='calendar'></div> 
     <p>
     <h2>What information is on the Change Calendar?</h2><p>
-    The Change Calendar lists the approved UW-IT comprehensive and emergency changes. It also lists the "Make No Changes" days at the start of the quarter and any additional days approved by the UW-IT Enterprise change advisory board. The colors for the changes have no distinction; they're just there to separate multiple events on a day. Make No Changes days are always in black.
+    The Change Calendar lists UW-IT's comprehensive and emergency changes in UW Connect approved by various Change Advisory Boards (CABs). It also lists the "Make No Changes" days at the start of the quarter and any additional days approved by the UW-IT Enterprise change advisory board. The colors for the changes have no distinction; they're just there to separate multiple events on a day. Make No Changes days are always in black.
 <br>
 Some examples of the approved changes include:
 <br><ul>
-<li>Planned network equipment software updates</li>
-<li>Changes to UW Connect</li>
-<li>Work being done in datacenters</li>
-<li>Azure changes</li></ul><p>
+<li>Planned network equipment software updates (ITI CAB)</li>
+<li>Changes to UW Connect (ITSM CAB)</li>
+<li>Work being done in datacenters (ITI CAB)</li>
+<li>Azure changes (Azure Active Directory CAB)</li></ul><p>
 
 <h2>Who do I ask if I don't know whether the entry should go on the Change Calendar?</h2><p>
                     Send an email to <script type="text/javascript">
@@ -100,7 +100,8 @@ Some examples of the approved changes include:
 The peak load on UW Information Technology's computing and networking infrastructure typically occurs on the first day of the quarter, so the stability of all infrastructure components is critical. To minimize the chance of introducing a problem, no changes should be made to production equipment and services.
 <p>
 If an emergency change is needed, or the change involves routine maintenance that has no chance of adversely affecting service to campus, an exception can be made with the approval of the Vice President for UW Information Technology or a division leader through use of an emergency change submitted to the UW-IT Enterprise change advisory board.
-
+<p>
+For more information about Change Management, including how to submit your change, visit the <a href="https://wiki.cac.washington.edu/pages/viewpage.action?title=Change+Management&spaceKey=smportal" target="_new">Change Management Wiki</a>.
                                      
 
 
