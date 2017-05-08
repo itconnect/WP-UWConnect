@@ -76,7 +76,7 @@ Some examples of the approved changes include:
 <br><ul>
 <li>Planned network equipment software updates (ITI CAB)</li>
 <li>Changes to UW Connect (ITSM CAB)</li>
-<li>Work being done in datacenters (ITI CAB)</li>
+<li>Work being done in data centers (ITI CAB)</li>
 <li>Azure changes (Azure Active Directory CAB)</li></ul><p>
 
 <h2>Who do I ask if I don't know whether the entry should go on the Change Calendar?</h2><p>
