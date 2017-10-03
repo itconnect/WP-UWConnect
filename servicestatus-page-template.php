@@ -22,6 +22,7 @@
 
 	<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 		<header class="entry-header">
+		<a name="status"/>
    		<h1 class="entry-title hidden-phone">Service Status</h1>
 		</header><!-- .entry-header -->
 
