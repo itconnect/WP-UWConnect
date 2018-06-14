@@ -17,24 +17,32 @@ $colors = array("#000000", "#FFFFFF",$uwGold); //Black, white, and UW Gold
 
 
 //Get list of changes from UW Connect
-$JSONDATES = get_SN3("/change_request_list.do?JSONv2&sysparm_query=approval%3Dapproved%5Estart_date%3E%3Djavascript%3Ags.dateGenerate('".$start."','00%3A00%3A00')%5Eend_date%3C%3Djavascript%3Ags.dateGenerate('".$end."','23%3A59%3A59')%5Etype!%3DRoutine".$ci, $args);
+$JSONDATES = get_SN3("/change_request_list.do?JSONv2&sysparm_query=approval%3Dapproved%5Estart_date%3E%3Djavascript%3Ags.dateGenerate('".$start."','00%3A00%3A00')%5Eend_date%3C%3Djavascript%3Ags.dateGenerate('".$end."','23%3A59%3A59')%5Etype!%3DRoutine%5Eu_cab!%3D81711d2a13dffa403156bb722244b0c1^u_sector=^ORu_sector=UW".$ci, $args);
+
 foreach ($JSONDATES->records as $event) {
-    $title = $event->short_description;
+    $number = $event->number;
+    $title = $event->short_description." ".$number;
+    $url = 'https://uw.service-now.com/fro.do?record='.$number;
     $startTime = $event->start_date;
     $time = strtotime($startTime." UTC");
     $startTime = date("Y-m-d\TH:i:s", $time);
     $endTime = $event->end_date;
     $time = strtotime($endTime." UTC");
     $endTime = date("Y-m-d\TH:i:s", $time);
-if (array_key_exists($event->u_cab, $colors)) { $color = $colors[$event->cmdb_ci]; }
+/*if (array_key_exists($event->u_cab, $colors)) { $color = $colors[$event->cmdb_ci]; }
     else {
         $color = make_color($colors);
         $colors[$event->u_cab] = $color;
-    }
+    }*/
+   $type = $event->type;
+   if ($type == "Comprehensive") { $color = "blue"; }
+   else { $color= "red"; }
+
     $oneEvent = array(
         "title" => $title,
         "start" => $startTime,
         "end" => $endTime,
+        "url" => $url,
         "color" => $color,
         "allDay" => false);
     array_push($events, $oneEvent);

@@ -8,9 +8,11 @@
 <div class="container uw-body">
 
   <div class="row">
-
+<!--
     <div class="col-md-<?php echo (($sidebar[0]!='on') ? '8' : '12' ) ?>
          uw-content" role='main'>
+-->
+ <div class="col-md-12 uw-content" role='main'>
 
       <?php uw_site_title(); ?><span class="udub-slant"><span></span></span><h3 class="uw-site-tagline" >Information technology tools and resources at the UW</h3>
 
@@ -44,8 +46,7 @@
 <script language="JavaScript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
 <script language="JavaScript" src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.3.0/fullcalendar.min.js"></script>
 <script>
-
-    $(document).ready(function() {
+$(document).ready(function() {
 
         $('#calendar').fullCalendar({
             theme: true,
@@ -55,22 +56,47 @@
                 right: 'month,agendaWeek,agendaDay,listMonth'
             },
             nextDayThreshold: '00:00:00',
+            height: 'auto',
             navLinks: true, // can click day/week names to navigate views
             eventLimit: 4, // allow "more" link when too many events
-             events: '/wp-content/plugins/WP-UWConnect/caldata.php'
-
+             events: '/wp-content/plugins/WP-UWConnect/caldata.php',
+        eventClick: function(event) {
+            if (event.url) {
+                    window.open(event.url, "_blank");
+                            return false;
+                                }
+                                }
 });
 
     });
 
 </script>
+<style>
+.fc-event-time, .fc-event-title {
+padding: 0 1px;
+white-space: nowrap;
+}
+
+.fc-title {
+white-space: normal;
+
+}
+</style>
 
 
+    <div id='calendar' height='auto'></div>
+    <!-- width='900px' height='1000px'></div> -->
+    <br>
+    <strong>Legend:</strong><p>
+    <table style='border: none; border-width: none; background-color: white' border='0' >
+    <tr style="background-color: white; border: none">
+    <td style="margin: 5px; background-color: white; border: none"><span style="color: white; background-color: blue; padding: 10px;">Comprehensive Changes</span></td>
+    <td style="background-color: white; border: none"><span style="color: white;background-color: red;padding: 10px;">Emergency Changes</span></td>
+    <td style="background-color: white; border: none"><span style="color: white;background-color: black;padding: 10px;">Make No Changes</span></td>
+    <td style="background-color: white; border: none"><span style="color: white;background-color: #85754D;padding: 10px;">Start of Quarter/Term</span></td></tr></table>    <p>
 
-    <div id='calendar'></div> 
-    <p>
     <h2>What information is on the Change Calendar?</h2><p>
-    The Change Calendar lists UW-IT's comprehensive and emergency changes in UW Connect approved by various Change Advisory Boards (CABs). It also lists the "Make No Changes" days at the start of the quarter and any additional days approved by the UW-IT Enterprise change advisory board. The colors for the changes have no distinction; they're just there to separate multiple events on a day. Make No Changes days are always in black.
+     The Change Calendar lists UW-IT's comprehensive and emergency changes in UW Connect approved by various Change Advisory Boards (CABs). It also lists the "Make No Changes" days at the start of the quarter and any additional days approved by the UW-IT Enterprise change advisory board. The colors for the changes have no distinction; they're just there to separate multiple events on a day. Make No Changes days are always in black.
 <br>
 Some examples of the approved changes include:
 <br><ul>
@@ -78,7 +104,6 @@ Some examples of the approved changes include:
 <li>Changes to UW Connect (ITSM CAB)</li>
 <li>Work being done in data centers (ITI CAB)</li>
 <li>Azure changes (Azure Active Directory CAB)</li></ul><p>
-
 <h2>Who do I ask if I don't know whether the entry should go on the Change Calendar?</h2><p>
                     Send an email to <script type="text/javascript">
                       document.write("<a href=\"mail" + "to:" + new Array("help","uw.edu").join("@") + "\">" + "help@uw.edu" + "</" + "a>");
