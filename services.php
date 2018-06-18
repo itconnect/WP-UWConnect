@@ -22,7 +22,7 @@ function service_post_type() {
         'capability_type' => 'page',
         'menu_position' => 5,
         'register_meta_box_cb' => 'service_info',
-        'supports' => array('title'),
+        'supports' => array('title', 'revisions'),
         'has_archive' => false,
         'hierarchical' => true,
     );
