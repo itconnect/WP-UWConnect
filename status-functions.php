@@ -3,7 +3,6 @@
 
 
 function check_e_outage() {
-   $url = "https://eoutage.uw.edu";
 if ( get_option('uwc_SN_URL') != "https://uw.service-now.com") { 
 	$url = "https://eoutage-test.uw.edu";
 }
@@ -28,15 +27,14 @@ if ( get_option('uwc_SN_URL') != "https://uw.service-now.com") {
   $status = scrape_between($data, "<div class=\"status\">", "</div></div>");
 	if (!strpos($data, "All systems operating normally")) {
 
-
 //	if (strpos($data, "not operating normally")) {
-		return $status;
+    return $status;
 	}
 	else { return false; }
 }
 
   function scrape_between($data, $start, $end){
-        $data = stristr($data, $start); // Stripping all data from before $start
+       $data = stristr($data, $start); // Stripping all data from before $start
         $data = substr($data, strlen($start));  // Stripping $start
         $stop = stripos($data, $end);   // Getting the position of the $end of the data to scrape
         $data = substr($data, 0, $stop);    // Stripping all data from after and including the $end of the data to scrape
@@ -44,11 +42,25 @@ if ( get_option('uwc_SN_URL') != "https://uw.service-now.com") {
     }
 
   function parse_eoutage($msg) {
-	$data = substr($msg, 32); //strip Updated text
-	$data = substr($data, 0, stripos($data, "Information sent to the eOutage mailing list is also posted online"));
-	return $data;
+	$data = substr($msg, 45); //strip Updated text
+
+
+$cutoff =  stripos($data, "For accurate and up-to-date information related to system incidents,");
+if ($cutoff) { $data = substr($data, 0, stripos($data, "For accurate and up-to-date information related to system incidents,"));
+}
+$data = str_replace('view previous messages for this outage','', $data);
+$data = nl2br($data);
+//$data = str_replace('. ','.<br>',$data);
+//$data = str_replace('https://', '<br>https://', $data);
+$data = str_replace('Next update:','<br><br>Next update:', $data);
+//$data = str_replace('No further updates','No further updates', $data);
+return $data;
 
   }
-
+function htmlize($text){
+ $text =preg_replace('/(?mi)([^"\'])((http|ftp|https):\/\/([_a-zA-z0-9\-]+\.)+[_a-zA-z0-9\-]{2,5}(\/[_a-zA-z0-9\-\.~]*)*(\?[_a-zA-z0-9\-\.~&=;]*)?)/','\1<a href="\2">\2</a>', " ".$text );
+  $text = str_replace("  ", "&nbsp;&nbsp;", nl2br($text));
+   return($text);
+   }
 
 ?>

@@ -580,7 +580,7 @@ function service_status() {
     $eOutageTitles = $dom->getElementsByTagName('h4');
     $eOutageDates = $dom->getElementsByTagName('em');
     $eOutageContent = $dom->getElementsByTagName('div');
-    foreach ($eOutageTitles as $title) {
+  foreach ($eOutageTitles as $title) {
         $titleArray[] = $title->nodeValue;
     }
     foreach ($eOutageDates as $date) {
@@ -590,17 +590,26 @@ function service_status() {
       $contentArray[] = parse_eoutage($content->textContent);
    }
    for ($i=0; $i < count($titleArray) ; $i++) {
+            $thisDate = $dateArray[$i];
+            $thisDate = str_replace(' Pacific Time','',$thisDate);
+            $thisDate = str_replace('Updated ','',$thisDate);
+            $thisDate = str_replace('/','-',$thisDate);
+            $thisDate = str_replace(' at ',' ', $thisDate);
+            //$thisDate = DateTime::createFromFormat('MM/DD/YY \a\t HH:MM:SS meridian');
+            $thisDate = date_create_from_format('m-d-y h:i:s a', $thisDate);
+            //echo $thisDate->format('Y-m-d H:i:s') . "\n";
+
+
      			echo "<div class='servicecontent row'>";
      			echo "<div class='servicewrap row'>";
                         echo "<span class='glyphicon glyphicon-chevron-right switch' style='display:inline-block;float:left;'></span>";
                         echo "<span class='service_name col-lg-5 col-md-5 col-sm-7 col-xs-7' style='font-weight:bold; display:inline-block;'>".$titleArray[$i]."</span>";
-                        echo "<span class='service_time col-lg-4 col-md-4 col-sm-4 col-xs-4' style='color:#aaa; font-size:95%; display:inline-block;'><span class='hidden-sm hidden-xs'></span>".$dateArray[$i]."</span>";
-			echo "</div>";
+                        echo "<span class='service_time col-lg-4 col-md-4 col-sm-4 col-xs-4' style='color:#aaa; font-size:80%; display:inline-block;'><span class='hidden-sm hidden-xs'></span>Updated at ".$thisDate->format('m-d-Y H:i:s')."</span>";                        echo "</div>";
                         echo "<ul class='relatedincidents'>";
                         echo "<li class='incident-head row'>";
                         echo "<div class='col-lg-9 col-md-9 col-sm-9 col-xs-9'>Description</div>";
                         echo "</li>";
-  			echo "<div class='col-lg-9 col-md-9 col-sm-9 col-xs-9 inc_sdesc'>" . $contentArray[$i] . "</div>";
+  			echo "<div class='col-lg-9 col-md-9 col-sm-9 col-xs-9 inc_sdesc'>" .htmlize($contentArray[$i]) . "</div>";
                         echo "</li></a>";
                         echo "</ul>";
                         echo "</div><p>";
@@ -711,11 +720,11 @@ function service_status() {
 			$time = end($ci);
 		   	
                     echo "<div class='servicecontent row' >";
-                      echo "<div class='servicewrap row' style='width: 119%' >";
+                      echo "<div class='servicewrap row' style='width: 100%' >";
                         echo "<span class='glyphicon glyphicon-chevron-right switch' style='display:inline-block;float:left;'></span>";
                         echo "<span class='service_name col-lg-5 col-md-5 col-sm-7 col-xs-7' style='font-weight:bold; display:inline-block;'>".$service." (".$count.")</span>";
                         echo "<span class='service_class hidden-xs hidden-sm col-lg-2 col-md-2' style='display:inline-block; font-size:90%;'>$class</span>";
-                        echo "<span class='service_time col-lg-4 col-md-4 col-sm-4 col-xs-4' style='color:#aaa; font-size:95%; display:inline-block;'><span class='hidden-sm hidden-xs'>Reported at </span>$time<br><span class='hidden-sm hiiden-xs'>Updated at ".$update_time->format('m-d-Y H:i:s')."</span></span>";
+                        echo "<span class='service_time col-lg-4 col-md-4 col-sm-4 col-xs-4' style='color:#aaa; font-size:78%; display:inline-block;'><span class='hidden-sm hidden-xs'>Reported at </span>$time<br><span class='hidden-sm hiiden-xs'>Updated at ".$update_time->format('m-d-Y H:i:s')."</span></span>";
                       echo "</div>";
                       echo "<ul class='relatedincidents'>";
                       echo "<li class='incident-head row'>";
@@ -732,9 +741,9 @@ function service_status() {
                                   echo "<div class='col-md-3 col-sm-3 col-xs-3'>" . $incident->number . " </div>";
                                   echo "<div class='col-lg-4 col-md-4 col-sm-4 col-xs-4 inc_desc' $sdWidth>" . $incident->short_description . "</div>";
 				  if ($count > 1) { //if there is only one incident, don't show time twice.
-					echo "<div class='col-lg-4 col-md-4 col-sm-4 col-xs-4' style='color:#aaa; font-size:95%; display:inline-block;'><span class='hidden-sm hidden-xs'>Reported at</span> " . $incident->sys_created_on . "<br>Updated at ".$incident->sys_updated_on."</div>";
+					echo "<div class='col-lg-4 col-md-4 col-sm-4 col-xs-4' style='color:#aaa; font-size:80%; display:inline-block;'><span class='hidden-sm hidden-xs'>Reported at</span> " . $incident->sys_created_on . "<br>Updated at ".$incident->sys_updated_on."</div>";
 					}
-					echo "</li>";                         
+					echo "<br/></li>";                         
      //echo "</li></a>";
                             }
                           }
