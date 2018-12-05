@@ -635,12 +635,12 @@ function service_status() {
       $sn_data = array();
       
      foreach ( $IDJSON->records as $record ) {
-          if( !isset( $sn_data[$record->cmdb_ci] ) ) { 
-                  $sn_data[$record->cmdb_ci] = array();
+          if( !isset( $sn_data[$record->short_description] ) ) { 
+                  $sn_data[$record->short_description] = array();
                   unset($first);
               }
 	   else {
-                        $first = $sn_data[$record->cmdb_ci][1];  //cannot assume order. load current first for ci
+                        $first = $sn_data[$record->short_description][1];  //cannot assume order. load current first for ci
               }
               $create = $record->sys_created_on;
               if( !isset( $first ) ) {
@@ -649,13 +649,13 @@ function service_status() {
               if($create < $first) {
                   $first = $create;
               }
-              $sn_data[$record->cmdb_ci][] = $record;
-              $sn_data[$record->cmdb_ci][] = $first;
+              $sn_data[$record->short_description][] = $record;
+              $sn_data[$record->short_description][] = $first;
 
       }
       $classes = array();
-      foreach ($sn_data as $ci) {
-        $serviceid = $ci[0]->cmdb_ci;
+     /* foreach ($sn_data as $ci) {
+        $serviceid = $ci[0]->short_description;
         $servJSON = get_SN('/cmdb_ci_list.do?JSONv2&sysparm_query=u_active!%3Dfalse%5Esys_id%3D' . $serviceid . '&displayvalue=true', $args);
 
 
@@ -663,17 +663,18 @@ function service_status() {
 //	if ($servJSON->records[0]->u_organizational_group !== "UW-IT") { $classes[]="xxx";}
         $classes[] = $class;
 	}
+    */
 
       if ( !empty( $JSON->records ) ) { 
           $sn_data = array();
           foreach( $JSON->records as $record ) {
 	     // if ($record->cmdb_ci == "") { continue; }
-              if( !isset( $sn_data[$record->cmdb_ci] ) ) { 
-                  $sn_data[$record->cmdb_ci] = array();
+              if( !isset( $sn_data[$record->short_description] ) ) { 
+                  $sn_data[$record->short_description] = array();
                   unset($first);
               }
 	      else { 
-			$first = $sn_data[$record->cmdb_ci][1];  //cannot assume order. load current first for ci
+			$first = $sn_data[$record->short_description][1];  //cannot assume order. load current first for ci
               }
 	      $create = $record->sys_created_on;
               if( !isset( $first ) ) {
@@ -683,11 +684,11 @@ function service_status() {
                   $first = $create;
               }
 	    
-              $sn_data[$record->cmdb_ci][] = $record;
-	      $sn_data[$record->cmdb_ci][] = $first;
+              $sn_data[$record->short_description][] = $record;
+	      $sn_data[$record->short_description][] = $first;
 
           }
-	      ksort($sn_data, SORT_STRING | SORT_FLAG_CASE); //sort alphabetically by ci name
+	      ksort($sn_data[], SORT_STRING | SORT_FLAG_CASE); //sort alphabetically by ci name
 
               echo "<h2 class='assistive-text' id='impact_headeing'>Impacted Services</h2>";
               # put the services into a single ordered list
@@ -710,6 +711,8 @@ function service_status() {
 		
 			}
 		  } 
+                if ($count == 0) { continue; }
+                 $service = $incident->short_description;
                   $class = $classes[$i];
                   $service = array_search($ci, $sn_data);
                   // handle the case of blank services and switches who's 'name' is a sequence of 5 or more numbers
@@ -718,18 +721,19 @@ function service_status() {
 	//print_r( $ci);
 	//		echo $ci[0]['cmdb_ci'];
 			$time = end($ci);
-		   	
+		   	$counttext ="";
+            if ($count > 1) { $counttext = "(".$count.")"; }
                     echo "<div class='servicecontent row' >";
                       echo "<div class='servicewrap row' style='width: 100%' >";
                         echo "<span class='glyphicon glyphicon-chevron-right switch' style='display:inline-block;float:left;'></span>";
-                        echo "<span class='service_name col-lg-5 col-md-5 col-sm-7 col-xs-7' style='font-weight:bold; display:inline-block;'>".$service." (".$count.")</span>";
-                        echo "<span class='service_class hidden-xs hidden-sm col-lg-2 col-md-2' style='display:inline-block; font-size:90%;'>$class</span>";
+                        echo "<span class='service_name col-lg-7 col-md-7 col-sm-7 col-xs-7' style='font-weight:bold; display:inline-block;'>".$service." ".$counttext."</span>";
+                       // echo "<span class='service_class hidden-xs hidden-sm col-lg-2 col-md-2' style='display:inline-block; font-size:90%;'>$class</span>";
                         echo "<span class='service_time col-lg-4 col-md-4 col-sm-4 col-xs-4' style='color:#aaa; font-size:78%; display:inline-block;'><span class='hidden-sm hidden-xs'>Reported at </span>$time<br><span class='hidden-sm hiiden-xs'>Updated at ".$update_time->format('m-d-Y H:i:s')."</span></span>";
                       echo "</div>";
                       echo "<ul class='relatedincidents'>";
                       echo "<li class='incident-head row'>";
                           echo "<div class='col-lg-3 col-md-3 col-sm-3 col-xs-3'>Incident Number</div>";
-                          echo "<div class='col-lg-9 col-md-9 col-sm-9 col-xs-9'>Description</div>"; 
+                          echo "<div class='col-lg-9 col-md-9 col-sm-9 col-xs-9'>Service</div>"; 
                       echo "</li>";
                           foreach( $ci as $incident ) {
                             if (!is_string($incident)) {
@@ -739,9 +743,9 @@ function service_status() {
 				echo "<li class='incident row'>";
 // lass='col-lg-3 col-md-3 col-sm-3 col-xs-3
                                   echo "<div class='col-md-3 col-sm-3 col-xs-3'>" . $incident->number . " </div>";
-                                  echo "<div class='col-lg-4 col-md-4 col-sm-4 col-xs-4 inc_desc' $sdWidth>" . $incident->short_description . "</div>";
+                                  echo "<div class='col-lg-5 col-md-5 col-sm-5 col-xs-5 inc_desc' style='font-size:90%;'>" . $incident->cmdb_ci . "</div>";
 				  if ($count > 1) { //if there is only one incident, don't show time twice.
-					echo "<div class='col-lg-4 col-md-4 col-sm-4 col-xs-4' style='color:#aaa; font-size:80%; display:inline-block;'><span class='hidden-sm hidden-xs'>Reported at</span> " . $incident->sys_created_on . "<br>Updated at ".$incident->sys_updated_on."</div>";
+					echo "<div class='col-lg-4 col-md-4 col-sm-4 col-xs-4' style='color:#aaa; font-size:75%; display:inline-block;'><span class='hidden-sm hidden-xs'>Reported at</span> " . $incident->sys_created_on . "<br>Updated at ".$incident->sys_updated_on."</div>";
 					}
 					echo "<br/></li>";                         
      //echo "</li></a>";

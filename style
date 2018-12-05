@@ -1,0 +1,211 @@
+.user-logout {
+    text-align:right; color:#777;
+}
+
+.watcher-eye { line-height: 15px !important; color: #999; vertical-align: text-bottom; }
+
+.resolved_ticket span { color: #999; }
+
+.request-list {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.request-list-header { color: #666; border-bottom: solid 1px #ccc; margin-bottom: 15px; }
+
+.request-list-header .request-list-description { text-decoration: none; color:#222; }
+
+.request-list a { text-decoration: none; display: block; }
+
+.request-list span { display: inline-block; line-height: 30px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+.request-list-number { }
+
+span.request-list-number[aria-labelledby="col_head_num"]  {font-size: 13px;  }
+
+.itsm-primary {
+    padding-top: 38px;
+}
+
+@media (max-width: 764px) {
+    .itsm-primary {
+        margin-top: 38px;
+        padding-top: 0px;
+    }
+}
+
+.request-list-service {
+    color: #222;
+}
+
+.request-list-status { margin-left: 0.5em; overflow: visible !important; }
+
+.request-list-status span { width:auto;display:inline-block;line-height:15px;color:#fff; margin-top: -20px; }
+
+.request-comment-form {
+    padding: 10px 0px 10px 0px;
+}
+
+.caller-comments, .caller-comments pre {
+    color: #888;
+    border: none;
+}
+
+.support-comments , .support-comments pre {
+    color: #333;
+    border: none;
+}
+
+.comment-timestamp { font-size: 85%;}
+
+.comment-timestamp .create-date { color: #aaa; display: inline-block; margin-left: 15px; }
+
+.services {
+    margin-bottom: 10px;
+    vertical-align: bottom;
+}
+
+#sidebar ul {
+    list-style-type:none;
+    padding: 0px;
+}
+
+#sidebar li {
+    margin: 0px;
+}
+
+.widgettitle {
+    font-size: 12px;
+}
+
+.relatedincidents {
+    list-style-type: none;
+    padding-left: 5%;
+}
+
+.servicename{
+    line-height: 30px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.servicecontent { padding: 10px; } 
+.incident-head.row {
+    font-weight: bold;
+    margin: 10px 0px;
+    border-bottom: 1px grey solid;
+}
+
+.incident.row {
+    margin: 2px 0px;
+}
+
+.inc_num {
+    text-decoration: underline;
+}
+
+.inc_sdesc {
+    color: #222;
+}
+
+.servicewrap {
+    cursor: pointer;
+}
+
+.servicewrap span {
+    pointer-events: none;
+}
+
+@media screen and (max-width: 920px)  {
+
+    #short-descr {
+        font-size: 20px;
+    }
+
+    #short-descr span {
+        display: block;
+    }
+}
+
+.buttonesque {
+    border-radius: 3px;
+    background-color: #606060;
+    font-size: 10pt;
+    padding: 1px 3px;
+    color: white;
+    text-decoration: none;
+}
+
+.buttonesque:hover {
+    border: 1.5px solid white;
+    border-radius: 3px;
+    padding: 0px 2px;
+}
+
+.buttonesque:hover, .buttonesque:visited{
+    color: white;
+    text-decoration: none;
+}
+
+.service-link {
+    font-size: 1.25em;
+    margin-bottom: 5px;
+}
+
+.service-short-desc {
+    list-style-type: none;
+    padding-left: 20px;
+}
+
+.service-attr {
+    font-size: 1.4em;
+    font-weight: bold;
+}
+
+.service-subattr {
+    font-size: 1.25em;
+}
+
+.attr-text {
+    margin-left: 20px;
+}
+
+.attr-wrap {
+    margin-bottom: 10px;
+    margin-left: 10px;
+}
+
+.subattr-wrap {
+    margin: 10px;
+}
+
+.superattr-wrap {
+}
+
+.tax-head {
+    font-size: 1em;
+}
+
+.service-list {
+    list-style-type: none;
+    margin-left: 10px;
+    padding: 3px;
+}
+
+.service {
+    margin-bottom: 10px;
+}
+
+.belowf {
+    font-size: 1em;
+    color: #333333;
+}
+
+.superattr-wrap p {
+    font-size: 0.85em;
+    color: #666666;
+}
+
+#fold {
+    border: 0.5px solid #666666;
+}
+
+pre.prettyprint [class]  {color: #333 !important;}
