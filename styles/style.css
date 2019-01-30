@@ -1,6 +1,7 @@
 .service-list .text-primary {
     font-size: 12px;
     font-style: italic;
+    color: #666666;
 }
 
 .user-logout {
