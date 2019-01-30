@@ -1,3 +1,8 @@
+.service-list .text-primary {
+    font-size: 12px;
+    font-style: italic;
+}
+
 .user-logout {
     text-align:right; color:#777;
 }
