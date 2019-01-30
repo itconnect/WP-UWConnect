@@ -1,4 +1,5 @@
 <?php
+define( 'DONOTCACHEPAGE', True );
 get_header();
 global $wp_query;
 $term = $wp_query->queried_object;
