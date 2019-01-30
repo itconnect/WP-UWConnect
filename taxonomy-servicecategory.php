@@ -21,7 +21,7 @@ $args = array_merge($wp_query->query,
               'post_status' => 'publish',
               'orderby' => 'title',
               'order' => 'ASC',
-);
+));
 $posts_query = new WP_Query($args);
 
 
