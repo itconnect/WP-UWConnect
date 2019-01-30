@@ -17,9 +17,8 @@ $term = $wp_query->queried_object;
 
 
 $args = array_merge($wp_query->query,
-	array('post_type' => 'service',
+	array(
               'posts_per_page' => -1,
-              'post_status' => 'publish',
               'orderby' => 'title',
               'order' => 'ASC',
 ));
