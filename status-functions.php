@@ -6,8 +6,7 @@ function check_e_outage() {
 if ( get_option('uwc_SN_URL') != "https://uw.service-now.com") { 
 	$url = "https://eoutage-test.uw.edu";
 }
-
-else { $url =  "https://eoutage.uw.edu";  }
+else { $url = "https://eoutage.uw.edu"; }
   $options = Array(
             CURLOPT_RETURNTRANSFER => TRUE,  // Setting cURL's option to return the webpage data
             CURLOPT_FOLLOWLOCATION => TRUE,  // Setting cURL to follow 'location' HTTP headers
@@ -43,7 +42,7 @@ else { $url =  "https://eoutage.uw.edu";  }
     }
 
   function parse_eoutage($msg) {
-	$data = substr($msg, 45); //strip Updated text
+	$data = substr($msg, 32); //strip Updated text
 
 
 $cutoff =  stripos($data, "For accurate and up-to-date information related to system incidents,");
@@ -53,7 +52,7 @@ $data = str_replace('view previous messages for this outage','', $data);
 $data = nl2br($data);
 //$data = str_replace('. ','.<br>',$data);
 //$data = str_replace('https://', '<br>https://', $data);
-$data = str_replace('Next update:','<br><br>Next update:', $data);
+$data = str_replace('Next update:','<br>Next update:', $data);
 //$data = str_replace('No further updates','No further updates', $data);
 return $data;
 

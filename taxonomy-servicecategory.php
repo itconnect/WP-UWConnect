@@ -2,7 +2,7 @@
 get_header();
 global $wp_query;
 $term = $wp_query->queried_object;
-query_posts(
+/*query_posts(
   array_merge(
     $wp_query->query,
     array(
@@ -12,6 +12,19 @@ query_posts(
     )
   )
 );
+*/
+
+
+$args = array_merge($wp_query->query,
+	array('post_type' => 'service',
+              'posts_per_page' => -1,
+              'post_status' => 'publish',
+              'orderby' => 'title',
+              'order' => 'ASC',
+);
+$posts_query = new WP_Query($args);
+
+
 ?>
 <?php get_template_part( 'header', 'image' ); ?>
 
@@ -47,14 +60,22 @@ query_posts(
       <div id='main_content' class="uw-body-copy" tabindex="-1">
                 <h2><?php echo $term->name; ?>  Services</h2>
                 <ul class='service-list'>
-                <?php while (have_posts()) : the_post();
+                <?php 
+		/*while (have_posts()) : the_post();
                 global $post;
                 $id = $post->ID;
                 $shortdesc = get_post_meta($id, 'uwc-short-description', true);
                 $perm = get_post_permalink($id);
-                ?>
+                */
+		while ($posts_query->have_posts()) : $posts_query->the_post();
+                    $id = $post->ID;
+                    $shortdesc = get_post_meta($id, 'uwc-short-description', true);
+                    $perm = get_post_permalink($id);
+                    $login = get_post_meta($id, '_srl-role', true);
+
+			?>
                 <a href="<?php echo $perm ?>" class='service-link'>
-                <li class='service'><?php the_title(); ?></a>
+                <li class='service'><?php the_title(); ?></a> <? if ($login == "uwit") { echo "<span class='text-primary'>(UW-IT Only)</span>"; } ?>
                 <ul class='service-short-desc'>
                 <li><?php echo $shortdesc ?></li>
                 </ul>
