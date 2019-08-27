@@ -34,42 +34,35 @@ $posts_query = new WP_Query($args);
 
     </div>
 
-    <div class="col-md-<?php echo (($sidebar[0]!="on") ? "8" : "12" ) ?> 
-         uw-content" role='main'>
+    <!-- Moved message -->
 
-      <?php uw_mobile_front_page_menu(); ?>
+        <div class="row show-grid">
+          
+          <div class="col-md-12" style="padding: 20px 0 !important;">
 
-      <?php service_breadcrumbs(); ?>
+            <div class="row show-grid">
 
-      <div id='main_content' class="uw-body-copy" tabindex="-1">
-                <h2>Services A-Z</h2>
-                <ul class='service-list'>
-                <?php
-                if( $posts_query->have_posts() ) {
-                  while ($posts_query->have_posts()) : $posts_query->the_post();
-                    $id = $post->ID;
-                    $shortdesc = get_post_meta($id, 'uwc-short-description', true);
-                    $perm = get_post_permalink($id);
-		    $login = get_post_meta($id, '_srl-role', true);
-                    ?>
-                    <a href="<?php echo $perm ?>" class='service-link'>
-                    <li class='service'><?php the_title(); ?></a> <? if ($login == "uwit") { echo "<span class='text-primary'>(UW-IT Only)</span>"; } ?>
-                      <ul class='service-short-desc'>
-                        <li><?php echo $shortdesc ?></li>
-                      </ul>
-                    </li>
-                  <?php 
-                  endwhile;
-                } ?>
-                </ul>
-                <?php if (current_user_can('edit_posts')) {
-                    edit_post_link('Edit', '<p>', '</p>');
-                } ?>
-       </div> <!-- main_content -->
-     </div> <!-- uw-content -->
-     <div id='sidebar' role='navigation' aria-label='Sidebar Menu'>
-          <?php dynamic_sidebar('Service-Catalog-Sidebar'); ?>
-     </div> <!-- #sidebar -->
+              <div class="col-md-6" style="padding: 0 !important;">
+                
+                <h1 style="font-size: 33px;">The UW-IT Service Catalog has moved.</h1>
+                <p style="margin-top: 25px;">The UW-IT Service Catalog has moved to a new location. Please update your links and bookmarks to point to:<br /><b><a href="https://uw.service-now.com/sp?id=sc_home">https://uw.service-now.com/sp?id=sc_home</a></b>
+                  <br />
+                <a class="uw-btn" style="margin-top: 45px;" href="https://uw.service-now.com/sp?id=sc_home">Go to the UW-IT Service Catalog</a></p>
+              
+              </div>
+
+              <div class="col-md-5 col-md-offset-1" style="margin-left: 40px !important;">
+
+                <div class="woof" style="background: url( <?php echo get_template_directory_uri() . '/assets/images/404.jpg' ?>) center center no-repeat; background-size: 100%; height: 300px"></div>
+                
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+
+<!-- End Moved Message -->
     </div> <!-- row -->
   </div> <!-- uw-body -->
 <?php get_footer(); ?>
