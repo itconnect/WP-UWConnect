@@ -29,11 +29,11 @@ get_header(); ?>
 
         <div class="row show-grid">
           
-          <div class="col-md-12">
+          <div class="col-md-12" style="padding: 20px 0 !important;">
 
             <div class="row show-grid">
 
-              <div class="col-md-6">
+              <div class="col-md-6" style="padding: 0 !important;">
                 
                 <h1 style="font-size: 31px;">The UW-IT Service Catalog has moved.</h1>
                 <p style="margin-top: 25px;">The UW-IT Service Catalog has moved to a new location. Please update your links and bookmarks to point to:<br /><b><a href="https://uw.service-now.com/sp?id=sc_home">https://uw.service-now.com/sp?id=sc_home</a></b>
