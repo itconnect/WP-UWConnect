@@ -36,13 +36,13 @@ get_header(); ?>
               <div class="col-md-6">
                 
                 <h1 style="font-size: 31px;">The UW-IT Service Catalog has moved.</h1>
-                <p>The UW-IT Service Catalog has moved to a new location. Please update your links and bookmarks to point to:<br /><b><a href="https://uw.service-now.com/sp?id=sc_home">https://uw.service-now.com/sp?id=sc_home</a></b>
+                <p style="margin-top: 25px;">The UW-IT Service Catalog has moved to a new location. Please update your links and bookmarks to point to:<br /><b><a href="https://uw.service-now.com/sp?id=sc_home">https://uw.service-now.com/sp?id=sc_home</a></b>
                   <br />
-                <a class="uw-btn" style="margin-top: 20px;" href="https://uw.service-now.com/sp?id=sc_home">Go to the UW-IT Service Catalog</a></p>
+                <a class="uw-btn" style="margin-top: 45px;" href="https://uw.service-now.com/sp?id=sc_home">Go to the UW-IT Service Catalog</a></p>
               
               </div>
 
-              <div class="col-md-5 col-md-offset-1">
+              <div class="col-md-5 col-md-offset-1" style="margin-left: 40px !important;">
 
                 <div class="woof" style="background: url( <?php echo get_template_directory_uri() . '/assets/images/404.jpg' ?>) center center no-repeat; background-size: 100%; height: 300px"></div>
                 
