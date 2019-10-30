@@ -74,8 +74,20 @@ $(document).ready(function() {
             height: 'auto',
             navLinks: true, // can click day/week names to navigate views
             eventLimit: 4, // allow "more" link when too many events
-             events: '/wp-content/plugins/WP-UWConnect/caldata.php',
-        eventClick: function(event) {
+            events:{
+                url: '/wp-content/plugins/WP-UWConnect/caldata.php',
+                cache: true
+            },
+	    loading: function( isLoading) {
+              if(isLoading) {// isLoading gives boolean value
+                        $('#wait').show();
+                         $('#calendar').hide();
+                              } else {
+                                        $('#wait').hide();
+                                         $('#calendar').show();
+                                              }
+                                                },
+	    eventClick: function(event) {
             if (event.url) {
                     window.open(event.url, "_blank");
                             return false;
@@ -87,6 +99,30 @@ $(document).ready(function() {
 
 </script>
 <style>
+#wait {
+    display: flex;
+      //align-items: center;
+        justify-content: center ;
+
+}
+.loadheader {  color:  #4b2e83; position: absolute; margin-bottom: 100px;}
+.loader {
+ margin-top: 50px;
+ position: relative;
+  border: 16px solid #f3f3f3; /* Light grey */
+    border-top: 16px solid #4b2e83; /* UW Purple */
+      border-radius: 50%;
+        width: 120px;
+          height: 120px;
+            animation: spin 2s linear infinite;
+            }
+
+            @keyframes spin {
+              0% { transform: rotate(0deg); }
+                100% { transform: rotate(360deg); }
+                }
+
+
 .fc-event-time, .fc-event-title {
 padding: 0 1px;
 white-space: nowrap;
@@ -97,7 +133,9 @@ white-space: normal;
 
 }
 </style>
-
+<div id="wait"><div class="loadheader"><strong>Loading changes...</strong><br></div>
+<div class="loader"></div>
+</div>
 
     <div id='calendar' height='auto'></div>
     <!-- width='900px' height='1000px'></div> -->
