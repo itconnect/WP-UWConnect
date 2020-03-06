@@ -179,7 +179,7 @@ The peak load on UW Information Technology's computing and networking infrastruc
 <p>
 If an emergency change is needed, or the change involves routine maintenance that has no chance of adversely affecting service to campus, an exception can be made with the approval of the Vice President for UW Information Technology or a division leader through use of an emergency change submitted to the UW-IT Enterprise change advisory board.
 <p>
-For more information about Change Management, including how to submit your change, visit the <a href="https://wiki.cac.washington.edu/pages/viewpage.action?title=Change+Management&spaceKey=smportal" target="_new">Change Management Wiki</a>.
+For more information about Change Management, including how to submit your change, visit the <a href="https://wiki.cac.washington.edu/display/smportal/Change+Control" target="_new">Change Management Wiki</a>.
                                      
 
 
