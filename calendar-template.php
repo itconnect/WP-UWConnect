@@ -177,8 +177,7 @@ Some examples of the approved changes include:
 <li>Have a fallback / load contingency plan</li></ul><p>
 The peak load on UW Information Technology's computing and networking infrastructure typically occurs on the first day of the quarter, so the stability of all infrastructure components is critical. To minimize the chance of introducing a problem, no changes should be made to production equipment and services.
 <p>
-If an emergency change is needed, or the change involves routine maintenance that has no chance of adversely affecting service to campus, an exception can be made with the approval of the Vice President for UW Information Technology or a division leader through use of an emergency change submitted to the UW-IT Enterprise change advisory board.
-<p>
+If an emergency change is needed, an exception can be made with the approval of the Vice President for UW Information Technology or a division leader through use of an emergency change submitted to the UW-IT Enterprise change advisory board. Please run your change through your change advisory board first for initial approval. The change board managers should understand the risk of the change to the production services they manage. If there is a high or medium risk change that should be escalated to the UW-IT Enterprise CAB. Low risk, and routine changes should be handled by first level change advisory boards.<p>
 For more information about Change Management, including how to submit your change, visit the <a href="https://wiki.cac.washington.edu/display/smportal/Change+Control" target="_new">Change Management Wiki</a>.
                                      
 
