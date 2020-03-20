@@ -160,7 +160,7 @@ Some examples of the approved changes include:
 <h2>Who do I ask if I don't know whether the entry should go on the Change Calendar?</h2><p>
                     Send an email to <script type="text/javascript">
                       document.write("<a href=\"mail" + "to:" + new Array("help","uw.edu").join("@") + "\">" + "help@uw.edu" + "</" + "a>");
-                      </script>, attention "Change Management."<p>
+                      </script>, attention "Change Control."<p>
 <h2>If the activity is not appropriate for the Change Calendar, are there other procedures that I should follow?</h2><p>
                     There are other ways to communicate scheduled activities. Some examples include the "work in area" (<script type="text/javascript">
                                           document.write("<a href=\"mail" + "to:" + new Array("wia"                                          ,"uw.edu").join("@") + "\">" + "wia@uw.edu" + "</" + "a>");</script>) and "outages" (<script type="text/javascript"> document.write("<a href=\"mail" + "to:" + new Array("outages"                                          ,"uw.edu").join("@") + "\">" + "outages@uw.edu" + "</" + "a>");</script>) lists</a>. You should work with your team to determine all of the appropriate steps necessary to communicate your activity.
@@ -168,7 +168,7 @@ Some examples of the approved changes include:
 <h2>I'm trying to add an entry and I'm not authorized. How do I get permission to add?</h2><p>
                     To request access contact <script type="text/javascript">
                       document.write("<a href=\"mail" + "to:" + new Array("help","uw.edu").join("@") + "\">" + "help@uw.edu" + "</" + "a>");
-                      </script>, attention "Change Management."<p>
+                      </script>, attention "Change Control."<p>
 <h2>What does "Make No Changes" mean?</h2><p>
                     To ensure quality service for students, faculty, and administrative staff during days marked with "Make No Changes," the following applies:<br><ul>
 <li>Make no changes to production services</li>
@@ -178,8 +178,7 @@ Some examples of the approved changes include:
 The peak load on UW Information Technology's computing and networking infrastructure typically occurs on the first day of the quarter, so the stability of all infrastructure components is critical. To minimize the chance of introducing a problem, no changes should be made to production equipment and services.
 <p>
 If an emergency change is needed, an exception can be made with the approval of the Vice President for UW Information Technology or a division leader through use of an emergency change submitted to the UW-IT Enterprise change advisory board. Please run your change through your change advisory board first for initial approval. The change board managers should understand the risk of the change to the production services they manage. If there is a high or medium risk change that should be escalated to the UW-IT Enterprise CAB. Low risk, and routine changes should be handled by first level change advisory boards.<p>
-For more information about Change Management, including how to submit your change, visit the <a href="https://wiki.cac.washington.edu/display/smportal/Change+Control" target="_new">Change Management Wiki</a>.
-                                     
+For more information about Change Control, including how to submit your change, visit the <a href="https://wiki.cac.washington.edu/display/smportal/Change+Control" target="_new">Change Control Wiki</a>.                                    
 
 
 </div>     
