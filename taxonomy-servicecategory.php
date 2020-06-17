@@ -36,7 +36,7 @@ $posts_query = new WP_Query($args);
 
       <?php uw_site_title(); ?>
       <span class='udub-slant'><span></span></span>
-      <div class='uw-site-tagline' >Your connection to information technology at UW</div>
+      <div class='uw-site-tagline' >Your connection to information technology at the UW</div>
 
       <div class="hero-search">
         <form role="search" method="get" id="searchform" class="searchform" action="https://itconnect.uw.edu/">
