@@ -36,7 +36,7 @@ document.getElementById('feedURL').innerHTML = "Your UW-IT Service Status RSS Fe
     <div class="col-md-<?php echo (($sidebar[0]!='on') ? '8' : '12' ) ?>
          uw-content" role='main'>
 
-      <?php uw_site_title(); ?><span class="udub-slant"><span></span></span><h3 class="uw-site-tagline" >Information technology tools and resources at the UW</h3>
+      <?php uw_site_title(); ?><span class="udub-slant"><span></span></span><h3 class="uw-site-tagline" >Your connection to information technology at UW</h3>
 
 
       <?php uw_mobile_front_page_menu(); ?>
