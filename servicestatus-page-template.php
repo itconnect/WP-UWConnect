@@ -1,80 +1,105 @@
-<?php define( 'DONOTCACHEPAGE', True ); ?>
-<?php require_once('status-functions.php');
-	get_header(); ?>
-   <?php while ( have_posts() ) : the_post(); ?>
+<?php
+/**
+ * The template for displaying Service Status page
+ *
+ */
 
-   <?php get_template_part( 'header', 'image' ); ?>
+define( 'DONOTCACHEPAGE', True ); 
+require_once('status-functions.php');
 
-<div class="container uw-body">
+get_header();
 
+$sidebar = get_post_meta( $post->ID, 'sidebar' );
+
+?>
+
+<div class="container-fluid uw-body">
   <div class="row">
 
-    <div class="hero-container">
+    <?php
+    if ( ! isset( $sidebar[0] ) || 'on' !== $sidebar[0] ) {
+      get_sidebar();
+    }
+    ?>
 
-      <?php uw_site_title(); ?>
-      <span class='udub-slant'><span></span></span>
-      <div class='uw-site-tagline' >Your connection to information technology at the UW</div>
+    <main id="primary" class="site-main uw-body-copy col-md-<?php echo ( ( ! isset( $sidebar[0] ) || 'on' !== $sidebar[0] ) ? '9' : '12' ); ?>">
 
-      <div class="hero-search">
-        <form role="search" method="get" id="searchform" class="searchform" action="https://itconnect.uw.edu/">
-          <div>
-            <label class="screen-reader-text" for="s">Search IT Connect:</label>
-            <input type="text" value="" name="s" id="s" placeholder="Search IT Connect:" autocomplete="off">
-            <button type="submit" aria-label="Submit search" class="hero-search-submit"></button>
+      <?php //uw_mobile_front_page_menu(); ?>
+
+      <?php //service_breadcrumbs(); ?>
+
+
+      <?php while ( have_posts() ) : the_post(); ?>
+
+        <article id="post-<?php the_ID(); ?>" <?php post_class('service-status-page'); ?>>
+
+          <header class="entry-header">
+            <?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>
+          </header><!-- .entry-header -->
+        
+          <div class="entry-content">
+
+            <p>This page shows active eOutages and High priority incidents for UW Seattle, Bothell, and Tacoma network and computing services managed by UW Information Technology.</p>
+            <p>You may also <a href="/servicestatusfeeddesc">Subscribe to Service Status RSS Feeds</a>.</p>
+
+            <?php 
+
+              the_content();
+              
+              wp_link_pages( array( 'before' => '<div class="page-link"><span>' . __( 'Pages:', 'twentyeleven' ) . '</span>', 'after' => '</div>' ) );
+
+                include_once(ABSPATH . 'wp-admin/includes/plugin.php');
+                
+                // prompt the user to log in and leave feedback if appropriate
+                if (is_plugin_active('document-feedback/document-feedback.php') && !is_user_logged_in()): 
+              ?>
+                  <p id='feedback_prompt'>
+                    <?php 
+                      printf(__('<a href="%s">Log in</a> to leave feedback.'), wp_login_url( get_permalink() . '#document-feedback' ) ); 
+                    ?>
+                  </p>
+              <?php 
+                endif;
+              ?>
+
+          </div><!-- .entry-content -->
+
+          <div id="noscript" class="alert">
+            JavaScript is required to view this content. Please enable JavaScript and try again.
           </div>
-        </form>
-      </div>
 
-    </div>
-
-    <div class="col-md-<?php echo (($sidebar[0]!='on') ? '8' : '12' ) ?>
-         uw-content" role='main'>
-
-      <?php uw_mobile_front_page_menu(); ?>
-
-      <?php service_breadcrumbs(); ?>
-
-
-	<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-		<header class="entry-header">
-		<a name="status"/>
-   		<h1 class="entry-title hidden-phone">Service Status</h1>
-		</header><!-- .entry-header -->
-
-		<div class="entry-content">
-			<p>This page shows active eOutages and High priority
-                incidents for UW Seattle, Bothell, and Tacoma network 
-                and computing services managed by UW Information Technology.</p><p>You may also <a href="/servicestatusfeeddesc">Subscribe to Service Status RSS Feeds</a>.
-<?php //if (check_e_outage()) { echo "<p><div class='alert alert-warning' style='margin-top:2em;'>There have been <a href='https://www.washington.edu/cac/outages' target='_blank'>eOutages</a> reported</div>"; } ?>
-					<?php the_content(); ?>
-					<?php wp_link_pages( array( 'before' => '<div class="page-link"><span>' . __( 'Pages:', 'twentyeleven' ) . '</span>', 'after' => '</div>' ) );
-                    include_once(ABSPATH . 'wp-admin/includes/plugin.php');
-                    // prompt the user to log in and leave feedback if appropriate
-                    if (is_plugin_active('document-feedback/document-feedback.php') && !is_user_logged_in()): ?>
-                    <p id='feedback_prompt'><?php printf(__('<a href="%s">Log in</a> to leave feedback.'), wp_login_url( get_permalink() . '#document-feedback' ) ); ?></p>
-                    <?php endif;?>
-				</div><!-- .entry-content -->
-                <div id="noscript" class="alert">
-        JavaScript is required to view this content. Please enable JavaScript and try again.
-        </div>
-        <div id="spinner" style="width:150px; margin:auto; display: none; text-align:center; line-height:100px;">
+          <div id="spinner" style="width:150px; margin:auto; display: none; text-align:center; line-height:100px;">
             <img src="<?php echo site_url('/wp-admin/images/loading.gif'); ?>" alt="Loading..." />
-        </div>
-        <div id="services"></div>
-                </div>
-            </article><!-- #post-<?php the_ID(); ?> -->
+          </div>
 
-	<?php endwhile; // end of the loop.  ?>
-    <div id='sidebar' role='navigation' aria-label='Sidebar Menu'>
-          <?php dynamic_sidebar('Service-Catalog-Sidebar'); ?>
-    </div> <!-- #sidebar -->
-     <!--   <div class="push"></div>
-  </div> -->
-   <script>
-       servicestatus();
-   </script>
-     <!-- uw-content -->
-    </div> <!-- row -->
-  </div> <!-- uw-body -->
-<?php get_footer(); ?>
+          <div id="services"></div>
+        
+        </article><!-- #post-<?php the_ID(); ?> -->
+
+      <?php endwhile; // end of the loop.  ?>
+
+      <script>
+        servicestatus();
+      </script>
+
+      <style type="text/css">
+        .service-status-page h2 {
+          font-size: 21px;
+          font-weight: 600;
+        }
+      </style>
+
+    </main><!-- #primary -->
+
+    <?php
+    if ( ! isset( $sidebar[0] ) || 'on' !== $sidebar[0] ) {
+      get_template_part( 'template-parts/sidebar', 'mobile' );
+    }
+    ?>
+
+  </div><!-- .row -->
+</div><!-- .container -->
+
+<?php
+get_footer();
 

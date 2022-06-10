@@ -566,7 +566,7 @@ function service_status() {
       'timeout' => 25,
   );
 
-echo "<h4>UW-IT Notices</h4><p>";
+echo "<h2>UW-IT Notices</h2><p>";
   $thePage = get_page_by_name('servicestatus');
   $theMessage = nl2br(get_post_meta($thePage->ID, 'service_status_page_message', TRUE));
   if ($theMessage == "") {
@@ -581,7 +581,7 @@ else {
 
 }
  
-  echo "<h4>eOutages</h4><p>For more information about eOutages, visit <a href=\"https://eoutage.uw.edu\">eOutage Homepage</a><p>";
+  echo "<h2>eOutages</h2><p>For more information about eOutages, visit <a href=\"https://eoutage.uw.edu\">eOutage Homepage</a><p>";
   $dom = new DOMDocument();
   $eOutage = check_e_outage();
   if (!$eOutage) { 
@@ -634,7 +634,7 @@ else {
 
   }
   echo "</div>";
-  echo "<br><h4>High Priority Incidents</h4>";
+  echo "<br><h2>High Priority Incidents</h2>";
 
 
   //$JSON = get_SN('/incident_list.do?JSONv2&sysparm_query=active%3Dtrue%5EstateNOT%20IN6%2C7%5Epriority%3D2%5EORpriority%3D1%5Eu_sectorNOT%20INK20%2CPNWGP%2CPWave%5EORu_sector%3D%5Eparent_incident=NULL&displayvalue=true', $args);
