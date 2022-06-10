@@ -91,7 +91,7 @@ $sidebar = get_post_meta( $post->ID, 'sidebar' );
         .service-status-page .row {
           display: block;
           flex-wrap: nowrap;
-          margin-lef: 0;
+          margin-left: 0;
           margin-right: 0;
         }
 
