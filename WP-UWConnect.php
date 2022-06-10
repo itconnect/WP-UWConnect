@@ -708,7 +708,7 @@ echo '<div class="uwit-notices"><h2>UW-IT Notices</h2><p>';
           }
         ksort($sn_data[], SORT_STRING | SORT_FLAG_CASE); //sort alphabetically by ci name
 
-              echo "<h3 class='assistive-text' id='impact_headeing'>Impacted Services</h3>";
+              echo "<h3 class='assistive-text' id='impact_heading'>Impacted Services</h3>";
               # put the services into a single ordered list
               echo "<div class='row' aria-labelledby='impact_heading'>";
               $i = 0;
