@@ -82,31 +82,6 @@ $sidebar = get_post_meta( $post->ID, 'sidebar' );
         servicestatus();
       </script>
 
-      <style type="text/css">
-        .service-status-page h2 {
-          font-size: 24px;
-          font-weight: 700;
-          margin-bottom: 15px;
-        }
-        .service-status-page .row {
-          display: block;
-          flex-wrap: nowrap;
-          margin-left: 0;
-          margin-right: 0;
-        }
-
-        .uwitnotices,
-        .eoutages,
-        .highprio {
-          margin: 25px 0 0 0;
-        }
-        h3#imact_heading {
-          font-size: 21px;
-          font-weight: 700;
-          margin: 5px 0 15px 0;
-        }
-      </style>
-
     </main><!-- #primary -->
 
     <?php
