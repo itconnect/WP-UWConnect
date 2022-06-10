@@ -578,7 +578,7 @@ echo '<div class="uwit-notices"><h2>UW-IT Notices</h2><p>';
                         //echo "<div class='col-lg-9 col-md-9 col-sm-9 col-xs-9 inc_sdesc'>" .$theMessage . "</div>";
                         echo "<div class='inc_sdesc'>" .$theMessage . "</div>";
                         echo "</ul>";
-                        echo "</div><p>";
+                        echo "</div></div>";
   echo '</div><!-- uwitnotices -->';
 
 }
