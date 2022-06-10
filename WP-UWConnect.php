@@ -566,7 +566,7 @@ function service_status() {
       'timeout' => 25,
   );
  
-  echo "<h4>eOutages</h4><p>For more information about eOutages, visit <a href=\"https://eoutage.uw.edu\">eOutage Homepage</a><p>";
+  echo "<h2>eOutages</h2><p>For more information about eOutages, visit <a href=\"https://eoutage.uw.edu\">eOutage Homepage</a><p>";
   $dom = new DOMDocument();
   $eOutage = check_e_outage();
   if (!$eOutage) { 
@@ -619,7 +619,7 @@ function service_status() {
 
   }
   echo "</div>";
-  echo "<br><h4>High Priority Incidents</h4>";
+  echo "<br><h2>High Priority Incidents</h2>";
 
 
   //$JSON = get_SN('/incident_list.do?JSONv2&sysparm_query=active%3Dtrue%5EstateNOT%20IN6%2C7%5Epriority%3D2%5EORpriority%3D1%5Eu_sectorNOT%20INK20%2CPNWGP%2CPWave%5EORu_sector%3D%5Eparent_incident=NULL&displayvalue=true', $args);
@@ -690,7 +690,7 @@ function service_status() {
           }
 	      ksort($sn_data[], SORT_STRING | SORT_FLAG_CASE); //sort alphabetically by ci name
 
-              echo "<h2 class='assistive-text' id='impact_headeing'>Impacted Services</h2>";
+              echo "<h3 class='assistive-text' id='impact_headeing'>Impacted Services</h3>";
               # put the services into a single ordered list
               echo "<div class='row' aria-labelledby='impact_heading'>";
               $i = 0;
