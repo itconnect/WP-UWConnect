@@ -565,6 +565,21 @@ function service_status() {
       ),
       'timeout' => 25,
   );
+
+echo "<h4>UW-IT Notices</h4><p>";
+  $thePage = get_page_by_name('servicestatus');
+  $theMessage = nl2br(get_post_meta($thePage->ID, 'service_status_page_message', TRUE));
+  if ($theMessage == "") {
+                 echo "<div class='alert alert-warning' style='margin-top:2em;'>There are no UW-IT Notices.</div>";}
+else {
+
+ echo "<div class='servicecontent row'>";
+                        echo "<div class='servicewrap row'>";
+                        echo "<div class='col-lg-9 col-md-9 col-sm-9 col-xs-9 inc_sdesc'>" .$theMessage . "</div>";
+                        echo "</ul>";
+                        echo "</div><p>";
+
+}
  
   echo "<h4>eOutages</h4><p>For more information about eOutages, visit <a href=\"https://eoutage.uw.edu\">eOutage Homepage</a><p>";
   $dom = new DOMDocument();

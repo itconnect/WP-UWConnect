@@ -164,7 +164,7 @@ function get_SN2($url, $args) {
      	$process = curl_init($url);
 	curl_setopt($process, CURLOPT_USERPWD, $snUser . ":" . $snPass);
 	curl_setopt($process, CURLOPT_TIMEOUT, 30);
-	curl_setopt($process, CURLOPT_POST, 1);
+	curl_setopt($process, CURLOPT_POST, 0);
 	curl_setopt($process, CURLOPT_RETURNTRANSFER, TRUE);
 	$return = curl_exec($process);
 	curl_close($process);
