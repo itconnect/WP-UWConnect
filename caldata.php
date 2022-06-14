@@ -17,7 +17,7 @@ $colors = array("#000000", "#FFFFFF",$uwGold); //Black, white, and UW Gold
 
 
 //Get list of changes from UW Connect
-$JSONDATES = get_SN3("/change_request_list.do?JSONv2&sysparm_query=approval%3Dapproved%5Estart_date%3E%3Djavascript%3Ags.dateGenerate('".$start."','00%3A00%3A00')%5Eend_date%3C%3Djavascript%3Ags.dateGenerate('".$end."','23%3A59%3A59')%5Etype!%3DRoutine%5Eu_cab!%3D81711d2a13dffa403156bb722244b0c1^u_sector=^ORu_sector=UW".$ci, $args);
+$JSONDATES = get_SN3("/change_request_list.do?JSONv2&sysparm_query=approval%3Dapproved%5Estart_date%3E%3Djavascript%3Ags.dateGenerate('".$start."','00%3A00%3A00')%5Eend_date%3C%3Djavascript%3Ags.dateGenerate('".$end."','23%3A59%3A59')%5Etype!%3DRoutine%5Eu_cab!%3D81711d2a13dffa403156bb722244b0c1".$ci, $args);
 
 foreach ($JSONDATES->records as $event) {
     $number = $event->number;
