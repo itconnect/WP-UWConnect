@@ -87,7 +87,8 @@ span.request-list-number[aria-labelledby="col_head_num"]  {font-size: 13px;  }
 
 .relatedincidents {
     list-style-type: none;
-    padding-left: 5%;
+    padding-left: 3em;
+    margin: 0 0 15px 0;
 }
 
 .servicename{
@@ -215,3 +216,26 @@ span.request-list-number[aria-labelledby="col_head_num"]  {font-size: 13px;  }
 }
 
 pre.prettyprint [class]  {color: #333 !important;}
+
+.service-status-page h2 {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+.service-status-page .row {
+  display: block;
+  flex-wrap: nowrap;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.uwitnotices,
+.eoutages,
+.highprio {
+  margin: 25px 0 0 0;
+}
+h3#impact_heading {
+  font-size: 21px;
+  font-weight: 700;
+  margin: 5px 0 15px 0;
+}

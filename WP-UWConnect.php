@@ -139,10 +139,10 @@ function uw_connect_options() {
           if (!get_page_by_name('servicestatus')) {
               create_servicestatus_page();
           }
-	  if (!get_page_by_name('servicestatusfeed')) {
-		create_servicestatusfeed_page();
-		}
-		 if (!get_page_by_name('servicestatusfeeddesc')) {
+    if (!get_page_by_name('servicestatusfeed')) {
+    create_servicestatusfeed_page();
+    }
+     if (!get_page_by_name('servicestatusfeeddesc')) {
                 create_servicestatusfeeddesc_page();
                 }
 
@@ -150,13 +150,13 @@ function uw_connect_options() {
          $calpage = get_page_by_name('changecalendar');
          $sspage = get_page_by_name('servicestatus');
           $incpage = get_page_by_name('incident');
-	  $ssfeed = get_page_by_name('servicestatusfeed');
-	  $ssfeeddesc =  get_page_by_name('servicestatusfeeddesc');
-	wp_delete_post($calpage->ID, true);
+    $ssfeed = get_page_by_name('servicestatusfeed');
+    $ssfeeddesc =  get_page_by_name('servicestatusfeeddesc');
+  wp_delete_post($calpage->ID, true);
     wp_delete_post($ssfeed->ID, true);
           wp_delete_post( $sspage->ID, true );
           wp_delete_post( $incpage->ID, true );
-	 wp_delete_post($ssfeeddesc->ID, true);
+   wp_delete_post($ssfeeddesc->ID, true);
 
       } else {
       }
@@ -167,7 +167,7 @@ function uw_connect_options() {
           create_servicecategories_page();
           create_servicestatusfeed_page();
           create_servicestatusfeeddesc_page();
-	  create_serviceAZ_page();
+    create_serviceAZ_page();
       } else if ( $servcat_val == 'off' && $prevservcat == 'on' ) {
           $shpage = get_page_by_name('services');
           $scpage = get_page_by_name('servicecategories');
@@ -566,27 +566,29 @@ function service_status() {
       'timeout' => 25,
   );
 
-echo "<h4>UW-IT Notices</h4><p>";
+echo '<div class="uwit-notices"><h2>UW-IT Notices</h2><p>';
   $thePage = get_page_by_name('servicestatus');
   $theMessage = nl2br(get_post_meta($thePage->ID, 'service_status_page_message', TRUE));
   if ($theMessage == "") {
                  echo "<div class='alert alert-warning' style='margin-top:2em;'>There are no UW-IT Notices.</div>";}
-else {
+  else {
 
- echo "<div class='servicecontent row'>";
+  echo "<div class='servicecontent row'>";
                         echo "<div class='servicewrap row'>";
-                        echo "<div class='col-lg-9 col-md-9 col-sm-9 col-xs-9 inc_sdesc'>" .$theMessage . "</div>";
+                        //echo "<div class='col-lg-9 col-md-9 col-sm-9 col-xs-9 inc_sdesc'>" .$theMessage . "</div>";
+                        echo "<div class='inc_sdesc'>" .$theMessage . "</div>";
                         echo "</ul>";
-                        echo "</div><p>";
+                        echo "</div></div>";
+  echo '</div><!-- uwitnotices -->';
 
 }
  
-  echo "<h4>eOutages</h4><p>For more information about eOutages, visit <a href=\"https://eoutage.uw.edu\">eOutage Homepage</a><p>";
+  echo '<div class="eoutages"><h2>eOutages</h2><p>For more information about eOutages, visit <a href=\"https://eoutage.uw.edu\">eOutage Homepage</a><p>';
   $dom = new DOMDocument();
   $eOutage = check_e_outage();
   if (!$eOutage) { 
-		echo "<div class='alert alert-warning' style='margin-top:2em;'>There are no eOutages.</div>"; 
-		}
+    echo "<div class='alert alert-warning' style='margin-top:2em;'>There are no eOutages.</div>"; 
+    }
   else {
     $dom->loadHTML($eOutage);
     $titleArray = array();
@@ -615,8 +617,8 @@ else {
             //echo $thisDate->format('Y-m-d H:i:s') . "\n";
 
 
-     			echo "<div class='servicecontent row'>";
-     			echo "<div class='servicewrap row'>";
+          echo "<div class='servicecontent row'>";
+          echo "<div class='servicewrap row'>";
                         echo "<span class='glyphicon glyphicon-chevron-right switch' style='display:inline-block;float:left;'></span>";
                         echo "<span class='service_name col-lg-5 col-md-5 col-sm-7 col-xs-7' style='font-weight:bold; display:inline-block;'>".$titleArray[$i]."</span>";
                         echo "<span class='service_time col-lg-4 col-md-4 col-sm-4 col-xs-4' style='color:#aaa; font-size:80%; display:inline-block;'><span class='hidden-sm hidden-xs'></span>Updated at ".$thisDate->format('m-d-Y H:i:s')."</span>";                        echo "</div>";
@@ -624,22 +626,23 @@ else {
                         echo "<li class='incident-head row'>";
                         echo "<div class='col-lg-9 col-md-9 col-sm-9 col-xs-9'>Description</div>";
                         echo "</li>";
-  			echo "<div class='col-lg-9 col-md-9 col-sm-9 col-xs-9 inc_sdesc'>" .htmlize($contentArray[$i]) . "</div>";
+        echo "<div class='col-lg-9 col-md-9 col-sm-9 col-xs-9 inc_sdesc'>" .htmlize($contentArray[$i]) . "</div>";
                         echo "</li></a>";
                         echo "</ul>";
                         echo "</div><p>";
 
 
-	}
+  }
 
   }
   echo "</div>";
-  echo "<br><h4>High Priority Incidents</h4>";
+  echo '</div><!-- eoutages-->';
+  echo '<div class="highprio"><br><h2>High Priority Incidents</h2>';
 
 
   //$JSON = get_SN('/incident_list.do?JSONv2&sysparm_query=active%3Dtrue%5EstateNOT%20IN6%2C7%5Epriority%3D2%5EORpriority%3D1%5Eu_sectorNOT%20INK20%2CPNWGP%2CPWave%5EORu_sector%3D%5Eparent_incident=NULL&displayvalue=true', $args);
   //$IDJSON = get_SN('/incident_list.do?JSONv2&sysparm_query=active%3Dtrue%5EstateNOT%20IN6%2C7%5Epriority%3D2%5EORpriority%3D1%5Eu_sectorNOT%20INK20%2CPNWGP%2CPWave%5EORu_sector%3D%5Eparent_incident%3DNULL^ORDERBYcmdb_ci', $args);
-	$JSON = get_SN('/incident_list.do?JSONv2&sysparm_query=active%3Dtrue%5EstateNOT%20IN6%2C7%5Epriority%3D2%5EORpriority%3D1%5Eu_sector%3DUW%5EORu_sector%3D%5Eparent_incident=NULL^cmdb_ci.u_organizational_group%3D51af60a86f2a110054aafd16ad3ee4d0&displayvalue=true', $args);
+  $JSON = get_SN('/incident_list.do?JSONv2&sysparm_query=active%3Dtrue%5EstateNOT%20IN6%2C7%5Epriority%3D2%5EORpriority%3D1%5Eu_sector%3DUW%5EORu_sector%3D%5Eparent_incident=NULL^cmdb_ci.u_organizational_group%3D51af60a86f2a110054aafd16ad3ee4d0&displayvalue=true', $args);
      $IDJSON =  get_SN('/incident_list.do?JSONv2&sysparm_query=active%3Dtrue%5EstateNOT%20IN6%2C7%5Epriority%3D2%5EORpriority%3D1%5Eu_sector%3DUW%5EORu_sector%3D%5Eparent_incident%3DNULL^cmdb_ci.u_organizational_group%3D51af60a86f2a110054aafd16ad3ee4d0^ORDERBYcmdb_ci', $args);
   if(!$JSON) {
           echo "<div class='alert alert-warning' style='margin-top:2em;'>We are currently experiencing problems retrieving the status of our services. Please try again in a few minutes.</div>";
@@ -654,7 +657,7 @@ else {
                   $sn_data[$record->short_description] = array();
                   unset($first);
               }
-	   else {
+     else {
                         $first = $sn_data[$record->short_description][1];  //cannot assume order. load current first for ci
               }
               $create = $record->sys_created_on;
@@ -675,68 +678,68 @@ else {
 
 
        $class = $servJSON->records[0]->sys_class_name;
-//	if ($servJSON->records[0]->u_organizational_group !== "UW-IT") { $classes[]="xxx";}
+//  if ($servJSON->records[0]->u_organizational_group !== "UW-IT") { $classes[]="xxx";}
         $classes[] = $class;
-	}
+  }
     */
 
       if ( !empty( $JSON->records ) ) { 
           $sn_data = array();
           foreach( $JSON->records as $record ) {
-	     // if ($record->cmdb_ci == "") { continue; }
+       // if ($record->cmdb_ci == "") { continue; }
               if( !isset( $sn_data[$record->short_description] ) ) { 
                   $sn_data[$record->short_description] = array();
                   unset($first);
               }
-	      else { 
-			$first = $sn_data[$record->short_description][1];  //cannot assume order. load current first for ci
+        else { 
+      $first = $sn_data[$record->short_description][1];  //cannot assume order. load current first for ci
               }
-	      $create = $record->sys_created_on;
+        $create = $record->sys_created_on;
               if( !isset( $first ) ) {
                   $first = $create;
               }
               if($create < $first) {
                   $first = $create;
               }
-	    
+      
               $sn_data[$record->short_description][] = $record;
-	      $sn_data[$record->short_description][] = $first;
+        $sn_data[$record->short_description][] = $first;
 
           }
-	      ksort($sn_data[], SORT_STRING | SORT_FLAG_CASE); //sort alphabetically by ci name
+        ksort($sn_data[], SORT_STRING | SORT_FLAG_CASE); //sort alphabetically by ci name
 
-              echo "<h2 class='assistive-text' id='impact_headeing'>Impacted Services</h2>";
+              echo "<h3 class='assistive-text' id='impact_heading'>Impacted Services</h3>";
               # put the services into a single ordered list
               echo "<div class='row' aria-labelledby='impact_heading'>";
               $i = 0;
               foreach( $sn_data as $ci) {
-		  $update_time = new DateTime();
-		  $current_update_time = new DateTime();
-		  $count = 0;
-		  foreach ($ci as $incident) { //count incidents for ci
-			if (!is_string($incident)) {
-			$current_update_time = DateTime::createFromFormat("m-d-Y H:i:s", $incident->sys_updated_on);
+      $update_time = new DateTime();
+      $current_update_time = new DateTime();
+      $count = 0;
+      foreach ($ci as $incident) { //count incidents for ci
+      if (!is_string($incident)) {
+      $current_update_time = DateTime::createFromFormat("m-d-Y H:i:s", $incident->sys_updated_on);
 
 
 
-			      if ($count == 0 || $update_time < $current_update_time) { $update_time = $current_update_time; 
+            if ($count == 0 || $update_time < $current_update_time) { $update_time = $current_update_time; 
 
-}			$count++; 
-				
-		
-			}
-		  } 
+}     $count++; 
+        
+    
+      }
+      } 
                 if ($count == 0) { continue; }
                  $service = $incident->short_description;
                   $class = $classes[$i];
                   $service = array_search($ci, $sn_data);
                   // handle the case of blank services and switches who's 'name' is a sequence of 5 or more numbers
                   //if ( $service !== '' && !preg_match('/^\d{5,}$/', $service) ) { 
-			if ($service !== '' ) {
-	//print_r( $ci);
-	//		echo $ci[0]['cmdb_ci'];
-			$time = end($ci);
-		   	$counttext ="";
+      if ($service !== '' ) {
+  //print_r( $ci);
+  //    echo $ci[0]['cmdb_ci'];
+      $time = end($ci);
+        $counttext ="";
             if ($count > 1) { $counttext = "(".$count.")"; }
                     echo "<div class='servicecontent row' >";
                       echo "<div class='servicewrap row' style='width: 100%' >";
@@ -753,16 +756,16 @@ else {
                           foreach( $ci as $incident ) {
                             if (!is_string($incident)) {
                              // echo "<a href='/itconnect/incident/$incident->number'><li class='incident row'>";
-				$sdwidth="";
-				if ($count == 1) { $sdWidth = "style='width: 75%'"; }
-				echo "<li class='incident row'>";
+        $sdwidth="";
+        if ($count == 1) { $sdWidth = "style='width: 75%'"; }
+        echo "<li class='incident row'>";
 // lass='col-lg-3 col-md-3 col-sm-3 col-xs-3
                                   echo "<div class='col-md-3 col-sm-3 col-xs-3'>" . $incident->number . " </div>";
                                   echo "<div class='col-lg-5 col-md-5 col-sm-5 col-xs-5 inc_desc' style='font-size:90%;'>" . $incident->cmdb_ci . "</div>";
-				  if ($count > 1) { //if there is only one incident, don't show time twice.
-					echo "<div class='col-lg-4 col-md-4 col-sm-4 col-xs-4' style='color:#aaa; font-size:75%; display:inline-block;'><span class='hidden-sm hidden-xs'>Reported at</span> " . $incident->sys_created_on . "<br>Updated at ".$incident->sys_updated_on."</div>";
-					}
-					echo "<br/></li>";                         
+          if ($count > 1) { //if there is only one incident, don't show time twice.
+          echo "<div class='col-lg-4 col-md-4 col-sm-4 col-xs-4' style='color:#aaa; font-size:75%; display:inline-block;'><span class='hidden-sm hidden-xs'>Reported at</span> " . $incident->sys_created_on . "<br>Updated at ".$incident->sys_updated_on."</div>";
+          }
+          echo "<br/></li>";                         
      //echo "</li></a>";
                             }
                           }
@@ -772,6 +775,7 @@ else {
                $i++;
             }
 echo "</div>";
+echo '</div><!-- highprio-->';
 }
   echo "<p class='alert' style='margin-top: 2em;'>Experiencing IT problems not listed on this page? <a href=\"".get_option('uwc_SN_URL')."/uwc.do?sysparm_direct=true#/catalog_order/13234c686f377900328c8bec5d3ee444\">Submit an incident report</a> for any issues you are currently experiencing or call (206) 221-5000. </a></p>";
         die();
