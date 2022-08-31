@@ -583,7 +583,7 @@ echo '<div class="uwit-notices"><h2>UW-IT Notices</h2><p>';
 
 }
  
-  echo '<div class="eoutages"><h2>eOutages</h2><p>For more information about eOutages, visit <a href=\"https://eoutage.uw.edu\">eOutage Homepage</a><p>';
+  echo '<div class="eoutages"><h2>eOutages</h2><p>For more information about eOutages, visit <a href="https://eoutage.uw.edu">eOutage Homepage</a><p>';
   $dom = new DOMDocument();
   $eOutage = check_e_outage();
   if (!$eOutage) { 
