@@ -777,7 +777,7 @@ echo '<div class="uwit-notices"><h2>UW-IT Notices</h2><p>';
 echo "</div>";
 echo '</div><!-- highprio-->';
 }
-  echo "<p class='alert' style='margin-top: 2em;'>Experiencing IT problems not listed on this page? <a href=\"".get_option('uwc_SN_URL')."/uwc.do?sysparm_direct=true#/catalog_order/13234c686f377900328c8bec5d3ee444\">Submit an incident report</a> for any issues you are currently experiencing or call (206) 221-5000. </a></p>";
+  echo "<p class='alert' style='margin-top: 2em;'>Experiencing IT problems not listed on this page? <a href=\"https://uwconnect.uw.edu/sp?id=sc_cat_item&sys_id=13234c686f377900328c8bec5d3ee444\">Submit an incident report</a> for any issues you are currently experiencing or call (206) 221-5000. </a></p>";
         die();
 }
 add_action( 'wp_ajax_service_status', 'service_status' );

@@ -5,6 +5,11 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL); 
    require('status-feed-functions.php');
    require('config.php');
+$instance = get_query_var('instance');
+$eoutage = get_query_var('eoutage');
+$showIncidents = get_query_var('incidents');
+$feedType = get_query_var('feedType');
+if ($feedType == "") { $instance = "prod"; $eoutage= "true"; $showIncidents = "true"; }
 
 
 

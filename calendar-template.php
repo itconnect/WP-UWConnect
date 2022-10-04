@@ -3,11 +3,8 @@
  * The template for displaying Change Calendar 
  *
  */
-
-
 define( 'DONOTCACHEPAGE', True ); 
 require_once('status-functions.php');
-
 get_header();
 
 $sidebar = get_post_meta( $post->ID, 'sidebar' );
@@ -53,7 +50,11 @@ $sidebar = get_post_meta( $post->ID, 'sidebar' );
       <script language="JavaScript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
       <script language="JavaScript" src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.3.0/fullcalendar.min.js"></script>
       <script>
-      $(document).ready(function() {
+	   jq223 = jQuery.noConflict(false);
+      </script>
+
+      <script>
+      jQuery(document).ready(function($) {
 
               $('#calendar').fullCalendar({
                   theme: true,
@@ -71,9 +72,9 @@ $sidebar = get_post_meta( $post->ID, 'sidebar' );
                       cache: true
                   },
       	    loading: function( isLoading) {
-                    if(isLoading) {// isLoading gives boolean value
-                              $('#wait').show();
-                               $('#calendar').hide();
+                    if(isLoading && 1==2) {// isLoading gives boolean value
+                              $('#wait').hide();
+                               $('#calendar').show();
                                     } else {
                                               $('#wait').hide();
                                                $('#calendar').show();

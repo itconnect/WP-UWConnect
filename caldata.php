@@ -1,6 +1,7 @@
 <?
 //8ae178ee6fc47500328c8bec5d3ee4c3
-include ('config.php');
+//require('config.php');
+
 $start = $_GET['start'];
 $end = $_GET['end'];
 $ci = $_GET['ci'];
@@ -14,6 +15,15 @@ else { $ci="%5Ecmdb_ci%3D".$ci; }
 $events = array();
 $uwGold = "#85754D";
 $colors = array("#000000", "#FFFFFF",$uwGold); //Black, white, and UW Gold
+
+/*$hash = base64_encode( get_option('uwc_SN_USER') . ':' . get_option('uwc_SN_PASS') );
+  $args = array(
+      'headers' => array(
+          'Authorization' => 'Basic ' . $hash,
+      ),
+      'timeout' => 25,
+  );
+*/
 
 
 //Get list of changes from UW Connect
@@ -72,7 +82,7 @@ foreach ($JSONMNC->records as $mncday) {
     $json = json_encode($xml);
     $array = json_decode($json,TRUE);
     foreach ($array['channel']['item'] as $quarterday) {
-        if (startsWith($quarterday['title'], "Instruction Begins for")) {
+        if (startsWith($quarterday['title'], "Instruction Begins")) {
           $qDate = str_replace("/","-",explode(" ",$quarterday['category'])[0]);
           $oneEvent = array(
              "title" => $quarterday['title'],
@@ -109,17 +119,30 @@ function validateDate($date, $format = 'Y-m-d')
     return $d && $d->format($format) == $date;
 }
 
+function get_SN5($url, $args) {
+    $url = get_option('uwc_SN_URL') . $url;
+    $response = wp_remote_get( $url, $args );
+    $body = wp_remote_retrieve_body( $response );
+    $json = json_decode( $body );
+    return $json;
+}
 
-function get_SN3($url, $args) {{
+
+
+
+
+function get_SN3($url, $args) {
+//	include('/data/www/itconnect.uw.edu/wp-content/plugins/WP-UWConnect/config.php');
+
         $currentURL == "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
         $snHost = "https://uw.service-now.com";
-	    $snUser = "itconnect";
-	    $snPass = $snPass;
+	   $snUser = "itconnect";
+	   $snPass = "D9Tv8379UR3H7g";
 	    $url = $snHost . $url;
         $process = curl_init($url);
+	curl_setopt($process, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
         curl_setopt($process, CURLOPT_USERPWD, $snUser . ":" . $snPass);
         curl_setopt($process, CURLOPT_TIMEOUT, 30);
-        //curl_setopt($process, CURLOPT_POST, 1);
         curl_setopt($process, CURLOPT_RETURNTRANSFER, TRUE);
         $return = curl_exec($process);
         curl_close($process);
