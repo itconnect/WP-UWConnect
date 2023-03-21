@@ -136,8 +136,6 @@ function get_SN3($url, $args) {
 
         $currentURL == "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
         $snHost = "https://uw.service-now.com";
-	   $snUser = "itconnect";
-	   $snPass = "D9Tv8379UR3H7g";
 	    $url = $snHost . $url;
         $process = curl_init($url);
 	curl_setopt($process, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
